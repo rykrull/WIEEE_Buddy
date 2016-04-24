@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
@@ -37,6 +38,7 @@ public class createNewUser extends Fragment {
     private EditText cnulastname;
     private EditText cnuusername;
     private EditText cnupassword;
+    private EditText cnupasswordconfirm;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,6 +79,7 @@ public class createNewUser extends Fragment {
         cnulastname = (EditText)view.findViewById(R.id.cnulastname);
         cnuusername = (EditText)view.findViewById(R.id.cnuusername);
         cnupassword = (EditText)view.findViewById(R.id.cnupassword);
+        cnupasswordconfirm = (EditText)view.findViewById(R.id.cnupasswordconfirm);
 
         return view;
     }
@@ -87,8 +90,14 @@ public class createNewUser extends Fragment {
         cnubutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getActivity(), MainDirectory.class);
-                startActivity(newIntent);
+                if(!((cnupassword.getText()).toString().equals((cnupasswordconfirm.getText()).toString()))){
+                    Toast.makeText(getActivity(), "Passwords do not match",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent newIntent = new Intent(getActivity(), MainDirectory.class);
+                    startActivity(newIntent);
+                }
             }
         });
     }

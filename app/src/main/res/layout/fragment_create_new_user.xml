@@ -54,7 +54,9 @@
         android:hint="Confirm Password"
         android:layout_below="@+id/cnupassword"
         android:layout_alignLeft="@+id/cnupassword"
-        android:layout_alignStart="@+id/cnupassword" />
+        android:layout_alignStart="@+id/cnupassword"
+        android:layout_alignRight="@+id/cnupassword"
+        android:layout_alignEnd="@+id/cnupassword" />
 
     <EditText
         android:layout_width="match_parent"
