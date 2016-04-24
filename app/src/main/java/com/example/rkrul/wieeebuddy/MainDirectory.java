@@ -18,7 +18,7 @@ public class MainDirectory extends AppCompatActivity implements eventsList.OnFra
         setSupportActionBar(myToolbar);
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_fragment_container, eventsList.newInstance())
+                .replace(R.id.directory_frag_container, eventsList.newInstance())
                 .addToBackStack(null)
                 .commit();
     }
