@@ -37,11 +37,24 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/cnuusername"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:hint="Username"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_below="@+id/cnulastname"
+        android:layout_alignLeft="@+id/cnupassword"
+        android:layout_alignStart="@+id/cnupassword"
+        android:layout_marginTop="60dp"
+        android:layout_alignRight="@+id/cnupassword"
+        android:layout_alignEnd="@+id/cnupassword" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/cnupasswordconfirm"
+        android:hint="Confirm Password"
+        android:layout_below="@+id/cnupassword"
+        android:layout_alignLeft="@+id/cnupassword"
+        android:layout_alignStart="@+id/cnupassword" />
 
     <EditText
         android:layout_width="match_parent"

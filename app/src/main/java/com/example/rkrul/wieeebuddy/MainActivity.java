@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
+import com.firebase.client.Firebase;
+
 import layout.createNewUser;
 import layout.login;
 import layout.signInUser;
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements login.OnFragmentI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
         getFragmentManager()
                 .beginTransaction()
