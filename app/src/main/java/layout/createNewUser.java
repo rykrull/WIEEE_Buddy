@@ -12,8 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +79,7 @@ public class createNewUser extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_new_user, container, false);
+        Firebase.setAndroidContext(getActivity());
         cnubutton = (Button)view.findViewById(R.id.cnubutton);
         cnufirstname = (EditText)view.findViewById(R.id.cnufirstname);
         cnulastname = (EditText)view.findViewById(R.id.cnulastname);
@@ -90,14 +96,29 @@ public class createNewUser extends Fragment {
         cnubutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!((cnupassword.getText()).toString().equals((cnupasswordconfirm.getText()).toString()))){
+                if(cnupassword.getText().toString().equals(cnupasswordconfirm.getText().toString())){
+                    backend();
+                    Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                    startActivity(newIntent);
+                }
+                else {
                     Toast.makeText(getActivity(), "Passwords do not match",
                             Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Intent newIntent = new Intent(getActivity(), MainDirectory.class);
-                    startActivity(newIntent);
-                }
+            }
+        });
+    }
+
+    void backend(){
+        Firebase myFirebaseRef = new Firebase("https://wieeebuddy.firebaseio.com/");
+        myFirebaseRef.createUser(cnuusername.getText().toString()+"@firebase.com", cnupassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
+            @Override
+            public void onSuccess(Map<String, Object> result) {
+                System.out.println("Successfully created user account with uid: " + result.get("uid"));
+            }
+            @Override
+            public void onError(FirebaseError firebaseError) {
+                // there was an error
             }
         });
     }
