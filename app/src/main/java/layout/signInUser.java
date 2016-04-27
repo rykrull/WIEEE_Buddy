@@ -10,10 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
+import com.firebase.client.AuthData;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,6 +82,7 @@ public class signInUser extends Fragment {
         return view;
     }
 
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -91,8 +96,21 @@ public class signInUser extends Fragment {
         sibutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getActivity(), Main2Activity.class);
-                startActivity(newIntent);
+                Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com");
+                ref.authWithPassword(siusername.getText().toString()+"@firebase.com", sipassword.getText().toString(), new Firebase.AuthResultHandler() {
+                    @Override
+                    public void onAuthenticated(AuthData authData) {
+                        System.out.println("User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
+                        Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                        startActivity(newIntent);
+                    }
+                    @Override
+                    public void onAuthenticationError(FirebaseError firebaseError) {
+                        Toast.makeText(getActivity(), "Username/Password incorrect",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
     }
