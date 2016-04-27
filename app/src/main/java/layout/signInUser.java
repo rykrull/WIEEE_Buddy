@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
 
@@ -90,7 +91,7 @@ public class signInUser extends Fragment {
         sibutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getActivity(), MainDirectory.class);
+                Intent newIntent = new Intent(getActivity(), Main2Activity.class);
                 startActivity(newIntent);
             }
         });

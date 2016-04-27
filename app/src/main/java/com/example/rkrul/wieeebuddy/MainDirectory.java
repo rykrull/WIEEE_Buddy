@@ -5,11 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import layout.eventsList;
 
 public class MainDirectory extends AppCompatActivity implements eventsList.OnFragmentInteractionListener{
 
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +22,7 @@ public class MainDirectory extends AppCompatActivity implements eventsList.OnFra
         setSupportActionBar(myToolbar);
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.directory_frag_container, eventsList.newInstance())
+                .replace(R.id.content_frame, eventsList.newInstance())
                 .addToBackStack(null)
                 .commit();
     }
