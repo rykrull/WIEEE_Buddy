@@ -7,5 +7,5 @@
     <color name="holo_primary_dark">#981717</color>
     <color name="background_holo_dark">#000000</color>
     <color name="screen_background_dark">#000000</color>
-    <color name="accent_material_dark">#981717</color>
+    <color name="accent_material_dark">#982d2d</color>
 </resources>

@@ -7,12 +7,12 @@ import java.util.Date;
  */
 public class Event {
     private String name;
-    private int startTime;
-    private int endTime;
+    private String startTime;
+    private String endTime;
     private String date;
     private String description;
 
-    public Event(String name, int startTime, int endTime, String date, String description){
+    public Event(String name, String startTime, String endTime, String date, String description){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -24,11 +24,11 @@ public class Event {
         return name;
     }
 
-    public int getStartTime(){
+    public String getStartTime(){
         return startTime;
     }
 
-    public int getEndTime(){
+    public String getEndTime(){
         return endTime;
     }
 

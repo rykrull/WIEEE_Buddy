@@ -7,6 +7,9 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.R;
 
@@ -19,10 +22,9 @@ import com.example.rkrul.wieeebuddy.R;
  * create an instance of this fragment.
  */
 public class addNewEvent extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    // TODO: Rename and change types of parameters
+    private EditText name;
+    private EditText description;
+    private Button next;
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,12 +59,31 @@ public class addNewEvent extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_new_event, container, false);
+        name = (EditText)view.findViewById(R.id.eventName);
+        description = (EditText)view.findViewById(R.id.eventDescription);
+        next = (Button)view.findViewById(R.id.neweventbutton);
         return view;
     }
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
-
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(name.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "Please enter event name",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.main2container, addEventDay.newInstance(
+                                    name.getText().toString(),description.getText().toString()))
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+        });;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -14,11 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import layout.addEventDate;
+import layout.addEventDay;
 import layout.addNewEvent;
 import layout.login;
 
 public class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
+        addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

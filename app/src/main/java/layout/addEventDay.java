@@ -3,10 +3,13 @@ package layout;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.R;
 
@@ -25,8 +28,14 @@ public class addEventDay extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String name;
+    private String description;
+    private int day;
+    private int month;
+    private int year;
+
+    private DatePicker dateSel;
+    private Button next;
 
     private OnFragmentInteractionListener mListener;
 
@@ -56,8 +65,8 @@ public class addEventDay extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            name = getArguments().getString(ARG_PARAM1);
+            description = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -65,7 +74,27 @@ public class addEventDay extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_event_day, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_event_day, container, false);
+        next = (Button)view.findViewById(R.id.eventcalbutton);
+        dateSel = (DatePicker)view.findViewById(R.id.datePicker);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                day = dateSel.getDayOfMonth();
+                month = dateSel.getMonth();
+                year = dateSel.getYear();
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main2container, addEventDate.newInstance(name, description, day, month, year))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

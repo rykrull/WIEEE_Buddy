@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,64 +12,80 @@
         android:id="@+id/timePicker"
         android:layout_gravity="center_horizontal|top" />
 
-    <TextClock
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textClock"
-        android:layout_gravity="left|bottom"
-        android:layout_marginBottom="60dp"
-        android:layout_marginLeft="70dp" />
-
-    <TextClock
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textClock2"
-        android:layout_gravity="right|bottom"
-        android:layout_marginRight="70dp"
-        android:layout_marginBottom="60dp" />
-
     <TextView
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selected Start Time"
         android:id="@+id/textView2"
         android:layout_gravity="left|bottom"
-        android:layout_marginBottom="90dp"
-        android:layout_marginLeft="0dp" />
+        android:layout_below="@+id/starttimebutton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Selected End Time"
         android:id="@+id/textView3"
         android:layout_gravity="right|bottom"
-        android:layout_marginBottom="90dp" />
+        android:layout_below="@+id/endtimebutton"
+        android:layout_alignRight="@+id/endtimebutton"
+        android:layout_alignEnd="@+id/endtimebutton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:text="Create Event"
+        android:id="@+id/createbutton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:text="Select Start Time"
-        android:id="@+id/button3"
+        android:id="@+id/starttimebutton"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginTop="100dp" />
+        android:layout_below="@+id/timePicker"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:text="Select End \nTime"
-        android:id="@+id/button4"
+        android:id="@+id/endtimebutton"
         android:layout_gravity="right|center_vertical"
-        android:layout_marginTop="100dp" />
+        android:layout_below="@+id/timePicker"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/starttime"
+        android:layout_gravity="left|bottom"
+        android:textSize="20dp"
+        android:textIsSelectable="false"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="46dp"
+        android:layout_marginStart="46dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endtime"
+        android:layout_gravity="right|bottom"
+        android:textSize="20dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignRight="@+id/endtimebutton"
+        android:layout_alignEnd="@+id/endtimebutton"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp" />
+
+</RelativeLayout>

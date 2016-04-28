@@ -3,12 +3,19 @@ package layout;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextClock;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
+import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.User;
+import com.firebase.client.Firebase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,10 +30,24 @@ public class addEventDate extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
+    private static final String ARG_PARAM4 = "param4";
+    private static final String ARG_PARAM5 = "param5";
 
     // TODO: Rename and change types of parameters
     private String name;
     private String description;
+    private int day;
+    private int month;
+    private int year;
+
+    private Button create;
+    private TimePicker timePicker;
+    private Button start;
+    private Button end;
+    private TextView startTime;
+    private TextView endTime;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,11 +64,14 @@ public class addEventDate extends Fragment {
      * @return A new instance of fragment addEventDate.
      */
     // TODO: Rename and change types and number of parameters
-    public static addEventDate newInstance(String eventName, String eventDescription) {
+    public static addEventDate newInstance(String eventName, String eventDescription, int day, int month, int year) {
         addEventDate fragment = new addEventDate();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, eventName);
         args.putString(ARG_PARAM2, eventDescription);
+        args.putInt(ARG_PARAM3, day);
+        args.putInt(ARG_PARAM4, month);
+        args.putInt(ARG_PARAM5,year);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,6 +82,9 @@ public class addEventDate extends Fragment {
         if (getArguments() != null) {
             name = getArguments().getString(ARG_PARAM1);
             description = getArguments().getString(ARG_PARAM2);
+            day = getArguments().getInt(ARG_PARAM3);
+            month = getArguments().getInt(ARG_PARAM4);
+            year = getArguments().getInt(ARG_PARAM5);
         }
     }
 
@@ -65,7 +92,65 @@ public class addEventDate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_event_date, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_event_date, container, false);
+        start = (Button)view.findViewById(R.id.starttimebutton);
+        end = (Button)view.findViewById(R.id.endtimebutton);
+        create = (Button)view.findViewById(R.id.createbutton);
+        timePicker = (TimePicker)view.findViewById(R.id.timePicker);
+        startTime = (TextView)view.findViewById(R.id.starttime);
+        endTime = (TextView)view.findViewById(R.id.endtime);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int hour = timePicker.getCurrentHour();
+                int minute = timePicker.getCurrentMinute();
+                String am = "AM";
+                if (hour>12){
+                    am = "PM";
+                    hour = hour - 12;
+                }
+                if(minute < 10){
+                    startTime.setText(hour + ":0" + minute + " " + am);
+                }
+                else {
+                    startTime.setText(hour + ":" + minute + " " + am);
+                }
+            }
+        });;
+
+        end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int hour = timePicker.getCurrentHour();
+                int minute = timePicker.getCurrentMinute();
+                String am = "AM";
+                if (hour > 12){
+                    am = "PM";
+                    hour = hour - 12;
+                }
+                if(minute < 10){
+                    endTime.setText(hour + ":0" + minute + " " + am);
+                }
+                else {
+                    endTime.setText(hour + ":" + minute + " " + am);
+                }
+            }
+        });;
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
+                Firebase eventRef = ref.child("events").child(name);
+                Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description);
+                eventRef.setValue(event);
+            }
+        });;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
