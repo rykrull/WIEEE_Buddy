@@ -1,0 +1,75 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.addEventDate">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker"
+        android:layout_gravity="center_horizontal|top" />
+
+    <TextClock
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textClock"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="70dp" />
+
+    <TextClock
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textClock2"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="60dp" />
+
+    <TextView
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Start Time"
+        android:id="@+id/textView2"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="90dp"
+        android:layout_marginLeft="0dp" />
+
+    <TextView
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected End Time"
+        android:id="@+id/textView3"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="90dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:text="Select Start Time"
+        android:id="@+id/button3"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginTop="100dp" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:text="Select End \nTime"
+        android:id="@+id/button4"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginTop="100dp" />
+
+</FrameLayout>

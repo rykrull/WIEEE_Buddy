@@ -1,5 +1,6 @@
 package com.example.rkrul.wieeebuddy;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,10 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import layout.addNewEvent;
 import layout.login;
 
 public class Main2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View view) {
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main_fragment_container, login.newInstance())
+                        .replace(R.id.main2container, addNewEvent.newInstance())
                         .addToBackStack(null)
                         .commit();
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -104,5 +106,9 @@ public class Main2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
     }
 }
