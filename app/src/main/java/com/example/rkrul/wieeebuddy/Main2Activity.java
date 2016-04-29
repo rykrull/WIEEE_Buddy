@@ -16,15 +16,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+
 import layout.addEventDate;
 import layout.addEventDay;
 import layout.addNewEvent;
+import layout.eventsList;
 import layout.login;
 import layout.manageAccount;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
-        addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener{
+        addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener, eventsList.OnFragmentInteractionListener{
 
     private User user;
     private TextView name;
@@ -34,14 +37,13 @@ public class Main2Activity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
 
         user = (User)getIntent().getSerializableExtra("user");
 
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +67,11 @@ public class Main2Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main2container, eventsList.newInstance())
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -76,7 +81,6 @@ public class Main2Activity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-
         }
     }
 
@@ -84,8 +88,6 @@ public class Main2Activity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
-
-
         return true;
     }
 

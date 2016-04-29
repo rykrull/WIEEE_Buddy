@@ -19,7 +19,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:id="@+id/eventDescription"
         android:layout_below="@+id/eventName"
         android:layout_centerHorizontal="true"
@@ -34,7 +34,30 @@
         android:text="Next"
         android:id="@+id/neweventbutton"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventBuilding"
+        android:hint="Event Building"
+        android:layout_below="@+id/eventRoomNumber"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/eventRoomNumber"
+        android:layout_below="@+id/eventDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Event Room Number" />
 
 </RelativeLayout>
