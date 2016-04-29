@@ -1,5 +1,6 @@
 package com.example.rkrul.wieeebuddy;
 
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import layout.addEventDate;
 import layout.addEventDay;
 import layout.addNewEvent;
 import layout.login;
+import layout.manageAccount;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
@@ -99,7 +101,11 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main2container, manageAccount.newInstance())
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

@@ -102,10 +102,11 @@ public class signInUser extends Fragment {
             @Override
             public void onClick(View v) {
                 Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com");
-                ref.authWithPassword(siusername.getText().toString()+"@firebase.com", sipassword.getText().toString(), new Firebase.AuthResultHandler() {
+                ref.authWithPassword(siusername.getText().toString(),
+                        sipassword.getText().toString(),
+                        new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
-                        System.out.println("User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
                         Intent newIntent = new Intent(getActivity(), Main2Activity.class);
                         startActivity(newIntent);
                     }

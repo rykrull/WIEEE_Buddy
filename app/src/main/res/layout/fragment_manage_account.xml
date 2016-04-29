@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/erCurrentEmail"
+        android:layout_gravity="center_horizontal"
+        android:hint="Current Email"
+        android:layout_marginTop="5dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/erPassword"
+        android:layout_gravity="center_horizontal"
+        android:hint="Password"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/erNewEmail"
+        android:layout_gravity="center_horizontal"
+        android:hint="New Email" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/erNewEmailConfirm"
+        android:layout_gravity="center_horizontal"
+        android:hint="Confrim New Email" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Email"
+        android:id="@+id/resetEmail"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/prEmail"
+        android:layout_gravity="center_horizontal"
+        android:hint="Email"
+        android:layout_marginTop="5dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/prOldPassword"
+        android:layout_gravity="center_horizontal"
+        android:hint="Old Password"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/prNewPassword"
+        android:layout_gravity="center_horizontal"
+        android:hint="New Password"
+        android:inputType="textPassword"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/prConfirmNewPassword"
+        android:layout_gravity="center_horizontal"
+        android:hint="Confirm New Password"
+        android:inputType="textPassword"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset Password"
+        android:id="@+id/resetPassword"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>
