@@ -18,9 +18,14 @@ import android.widget.Toast;
 import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.AuthData;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,7 +112,36 @@ public class signInUser extends Fragment {
                         new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
+
+                        User user = new User();
+                        Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/users");
+                        Query queryRef = ref.orderByChild("email");
+
+                        queryRef.addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                User curr = dataSnapshot.getValue(User.class);
+                                if(curr.getEmail().equals(siusername.getText().toString())){
+                                    Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                                    newIntent.putExtra("user", curr);
+                                    startActivity(newIntent);
+                                }
+                            }
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                            }
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                            }
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                            }
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+                            }
+                        });
+
                         Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                        newIntent.putExtra("user", new User(" "," "," ",null, 0));
                         startActivity(newIntent);
                     }
                     @Override

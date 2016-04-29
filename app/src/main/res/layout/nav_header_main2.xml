@@ -22,13 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Username"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:id="@+id/usersName" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="email@wisc.edu"
-        android:id="@+id/textView" />
+        android:layout_width="352dp"
+        android:layout_height="match_parent"
+        android:id="@+id/email" />
 
 </LinearLayout>

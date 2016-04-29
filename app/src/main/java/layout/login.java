@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,6 +111,7 @@ public class login extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                newIntent.putExtra("user", new User("GUEST@guest.guest","You a Guest"," ",null, 0));
                 startActivity(newIntent);
             }
         });

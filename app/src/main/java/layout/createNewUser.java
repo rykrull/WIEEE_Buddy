@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -43,6 +45,7 @@ public class createNewUser extends Fragment {
     private EditText cnuusername;
     private EditText cnupassword;
     private EditText cnupasswordconfirm;
+    private EditText studentID;
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,6 +88,7 @@ public class createNewUser extends Fragment {
         cnuusername = (EditText)view.findViewById(R.id.cnuusername);
         cnupassword = (EditText)view.findViewById(R.id.cnupassword);
         cnupasswordconfirm = (EditText)view.findViewById(R.id.cnupasswordconfirm);
+        studentID = (EditText)view.findViewById(R.id.studentID);
 
         return view;
     }
@@ -98,16 +102,28 @@ public class createNewUser extends Fragment {
                 if(cnupassword.getText().toString().equals(cnupasswordconfirm.getText().toString())){
                     if(cnuemailconfirm.getText().toString().equals(cnuusername.getText().toString())) {
                         Firebase myFirebaseRef = new Firebase("https://wieeebuddy.firebaseio.com/");
-                        myFirebaseRef.createUser(cnuusername.getText().toString(), cnupassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
+                        myFirebaseRef.createUser(cnuusername.getText().toString(),
+                                cnupassword.getText().toString(),
+                                new Firebase.ValueResultHandler<Map<String, Object>>() {
                             @Override
                             public void onSuccess(Map<String, Object> result) {
+                                Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
+                                Firebase userRef = ref.child("users").child(cnufirstname.getText().toString());
+                                ArrayList<String> tmp = new ArrayList<String>();
+                                tmp.add(" ");
+                                User user = new User(cnuemailconfirm.getText().toString(),
+                                        cnufirstname.getText().toString(),
+                                        studentID.getText().toString(),
+                                        tmp, 0);
+                                userRef.setValue(user);
                                 Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                                newIntent.putExtra("user", user);
                                 startActivity(newIntent);
                             }
 
                             @Override
                             public void onError(FirebaseError firebaseError) {
-                                Toast.makeText(getActivity(), "Email is invalid",
+                                Toast.makeText(getActivity(), "Email is invalid or already has an account",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });

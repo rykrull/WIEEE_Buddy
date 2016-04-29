@@ -14,7 +14,7 @@
         android:id="@+id/cnufirstname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="60dp"
         android:hint="Name"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
@@ -26,7 +26,7 @@
         android:ems="10"
         android:id="@+id/cnuemailconfirm"
         android:hint="Email"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="90dp"
         android:layout_below="@+id/cnufirstname"
         android:layout_alignLeft="@+id/cnufirstname"
         android:layout_alignStart="@+id/cnufirstname"
@@ -66,7 +66,7 @@
         android:ems="10"
         android:id="@+id/cnupassword"
         android:hint="Password"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/cnuusername"
         android:layout_alignLeft="@+id/cnuemailconfirm"
         android:layout_alignStart="@+id/cnuemailconfirm"
@@ -81,5 +81,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="58dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/studentID"
+        android:layout_below="@+id/cnufirstname"
+        android:layout_alignRight="@+id/cnufirstname"
+        android:layout_alignEnd="@+id/cnufirstname"
+        android:layout_alignLeft="@+id/cnufirstname"
+        android:layout_alignStart="@+id/cnufirstname"
+        android:hint="Student ID"
+        android:inputType="number"/>
 
 </RelativeLayout>
