@@ -1,10 +1,13 @@
 package layout;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +40,7 @@ public class signInUser extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Button siResetButton;
     private Button sibutton;
     private EditText siusername;
     private EditText sipassword;
@@ -78,6 +82,7 @@ public class signInUser extends Fragment {
         sibutton = (Button)view.findViewById(R.id.sibutton);
         siusername = (EditText)view.findViewById(R.id.siusername);
         sipassword = (EditText)view.findViewById(R.id.sipassword);
+        siResetButton = (Button)view.findViewById(R.id.siResetButton);
 
         return view;
     }
@@ -113,10 +118,48 @@ public class signInUser extends Fragment {
 
             }
         });
-        sibutton.setOnClickListener(new View.OnClickListener() {
+        siResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                if (siusername.getText().toString().equals("")) {
+                    Toast.makeText(getActivity(), "Please enter email in the email text field",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    new AlertDialog.Builder(getActivity())
+                            .setMessage("By clicking yes, an email will " +
+                                    "be sent to the current email with instructions on how to reset your password.")
+                            .setIcon(R.drawable.wieee_logo)
+                            .setTitle("RESET PASSWORD")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com");
+                                    ref.resetPassword(siusername.getText().toString(), new Firebase.ResultHandler() {
+                                        @Override
+                                        public void onSuccess() {
+                                            Toast.makeText(getActivity(), "Password email sent!",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onError(FirebaseError firebaseError) {
+                                            Toast.makeText(getActivity(), "Email is invalid or not connect to an account",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                    dialog.cancel();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .setCancelable(false)
+                            .create()
+                            .show();
+                }
             }
         });
     }
