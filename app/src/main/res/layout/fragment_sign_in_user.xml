@@ -13,7 +13,7 @@
         android:ems="10"
         android:id="@+id/siusername"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:hint="Username" />
@@ -28,14 +28,32 @@
         android:layout_marginTop="20dp"
         android:hint="Password"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="365dp"
+        android:layout_height="60dp"
         android:text="Sign In"
         android:id="@+id/sibutton"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="160dp"
+        android:backgroundTint="#981717" />
+
+    <ImageView
+        android:layout_width="123dp"
+        android:layout_height="123dp"
+        android:id="@+id/smallLogo"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/wieee_dark" />
+
+    <Button
+        android:layout_width="365dp"
+        android:layout_height="60dp"
+        android:text="Reset Password"
+        android:id="@+id/siResetButton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="100dp" />
 
 </FrameLayout>

@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Main2Activity;
-import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -40,7 +39,7 @@ public class createNewUser extends Fragment {
 
     private Button cnubutton;
     private EditText cnufirstname;
-    private EditText cnulastname;
+    private EditText cnuemailconfirm;
     private EditText cnuusername;
     private EditText cnupassword;
     private EditText cnupasswordconfirm;
@@ -82,7 +81,7 @@ public class createNewUser extends Fragment {
         Firebase.setAndroidContext(getActivity());
         cnubutton = (Button)view.findViewById(R.id.cnubutton);
         cnufirstname = (EditText)view.findViewById(R.id.cnufirstname);
-        cnulastname = (EditText)view.findViewById(R.id.cnulastname);
+        cnuemailconfirm = (EditText)view.findViewById(R.id.cnuemailconfirm);
         cnuusername = (EditText)view.findViewById(R.id.cnuusername);
         cnupassword = (EditText)view.findViewById(R.id.cnupassword);
         cnupasswordconfirm = (EditText)view.findViewById(R.id.cnupasswordconfirm);
@@ -97,28 +96,29 @@ public class createNewUser extends Fragment {
             @Override
             public void onClick(View v) {
                 if(cnupassword.getText().toString().equals(cnupasswordconfirm.getText().toString())){
-                    backend();
-                    Intent newIntent = new Intent(getActivity(), Main2Activity.class);
-                    startActivity(newIntent);
-                }
-                else {
+                    if(cnuemailconfirm.getText().toString().equals(cnuusername.getText().toString())) {
+                        Firebase myFirebaseRef = new Firebase("https://wieeebuddy.firebaseio.com/");
+                        myFirebaseRef.createUser(cnuusername.getText().toString(), cnupassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
+                            @Override
+                            public void onSuccess(Map<String, Object> result) {
+                                Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                                startActivity(newIntent);
+                            }
+
+                            @Override
+                            public void onError(FirebaseError firebaseError) {
+                                Toast.makeText(getActivity(), "Email is invalid",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "Emails do not match",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
                     Toast.makeText(getActivity(), "Passwords do not match",
                             Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-    }
-
-    void backend(){
-        Firebase myFirebaseRef = new Firebase("https://wieeebuddy.firebaseio.com/");
-        myFirebaseRef.createUser(cnuusername.getText().toString()+"@firebase.com", cnupassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> result) {
-                System.out.println("Successfully created user account with uid: " + result.get("uid"));
-            }
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                // there was an error
             }
         });
     }

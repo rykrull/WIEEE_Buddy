@@ -113,6 +113,12 @@ public class signInUser extends Fragment {
 
             }
         });
+        sibutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
     @Override

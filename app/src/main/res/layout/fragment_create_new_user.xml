@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
-        android:hint="First Name"
+        android:hint="Name"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
 
@@ -24,12 +24,14 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/cnulastname"
+        android:id="@+id/cnuemailconfirm"
+        android:hint="Email"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/cnufirstname"
-        android:layout_centerHorizontal="true"
-        android:hint="Last Name"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_alignLeft="@+id/cnufirstname"
+        android:layout_alignStart="@+id/cnufirstname"
+        android:layout_alignRight="@+id/cnufirstname"
+        android:layout_alignEnd="@+id/cnufirstname" />
 
     <EditText
         android:layout_width="match_parent"
@@ -37,11 +39,10 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/cnuusername"
-        android:hint="Username"
-        android:layout_below="@+id/cnulastname"
+        android:hint="Confirm Email"
+        android:layout_below="@+id/cnuemailconfirm"
         android:layout_alignLeft="@+id/cnupassword"
         android:layout_alignStart="@+id/cnupassword"
-        android:layout_marginTop="60dp"
         android:layout_alignRight="@+id/cnupassword"
         android:layout_alignEnd="@+id/cnupassword" />
 
@@ -53,10 +54,10 @@
         android:id="@+id/cnupasswordconfirm"
         android:hint="Confirm Password"
         android:layout_below="@+id/cnupassword"
+        android:layout_alignRight="@+id/cnuemailconfirm"
+        android:layout_alignEnd="@+id/cnuemailconfirm"
         android:layout_alignLeft="@+id/cnupassword"
-        android:layout_alignStart="@+id/cnupassword"
-        android:layout_alignRight="@+id/cnupassword"
-        android:layout_alignEnd="@+id/cnupassword" />
+        android:layout_alignStart="@+id/cnupassword" />
 
     <EditText
         android:layout_width="match_parent"
@@ -64,11 +65,13 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/cnupassword"
-        android:layout_below="@+id/cnuusername"
-        android:layout_centerHorizontal="true"
         android:hint="Password"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/cnuusername"
+        android:layout_alignLeft="@+id/cnuemailconfirm"
+        android:layout_alignStart="@+id/cnuemailconfirm"
+        android:layout_alignRight="@+id/cnuemailconfirm"
+        android:layout_alignEnd="@+id/cnuemailconfirm" />
 
     <Button
         android:layout_width="wrap_content"
