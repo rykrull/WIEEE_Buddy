@@ -33,6 +33,7 @@ public class addEventDate extends Fragment {
     private static final String ARG_PARAM3 = "param3";
     private static final String ARG_PARAM4 = "param4";
     private static final String ARG_PARAM5 = "param5";
+    private static final String ARG_PARAM6 = "param6";
 
     // TODO: Rename and change types of parameters
     private String name;
@@ -40,6 +41,7 @@ public class addEventDate extends Fragment {
     private int day;
     private int month;
     private int year;
+    private String location;
 
     private Button create;
     private TimePicker timePicker;
@@ -64,7 +66,7 @@ public class addEventDate extends Fragment {
      * @return A new instance of fragment addEventDate.
      */
     // TODO: Rename and change types and number of parameters
-    public static addEventDate newInstance(String eventName, String eventDescription, int day, int month, int year) {
+    public static addEventDate newInstance(String eventName, String eventDescription, int day, int month, int year, String location) {
         addEventDate fragment = new addEventDate();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, eventName);
@@ -72,6 +74,7 @@ public class addEventDate extends Fragment {
         args.putInt(ARG_PARAM3, day);
         args.putInt(ARG_PARAM4, month);
         args.putInt(ARG_PARAM5,year);
+        args.putString(ARG_PARAM6, location);
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,6 +88,7 @@ public class addEventDate extends Fragment {
             day = getArguments().getInt(ARG_PARAM3);
             month = getArguments().getInt(ARG_PARAM4);
             year = getArguments().getInt(ARG_PARAM5);
+            location = getArguments().getString(ARG_PARAM6);
         }
     }
 
@@ -147,7 +151,7 @@ public class addEventDate extends Fragment {
             public void onClick(View v) {
                 Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
                 Firebase eventRef = ref.child("events").child(name);
-                Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description);
+                Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description, location);
                 eventRef.setValue(event);
             }
         });;

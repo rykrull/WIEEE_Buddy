@@ -7,8 +7,20 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,10 +40,17 @@ public class eventsList extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private static ArrayList<Event> eventlist;
+    private static ArrayList<String> eventStringlist;
+    private static ArrayAdapter<String> eventArrayAdapter;
+    private int indexMain;
+
+    private ListView eventslist;
 
     private OnFragmentInteractionListener mListener;
 
     public eventsList() {
+
         // Required empty public constructor
     }
 
@@ -46,6 +65,8 @@ public class eventsList extends Fragment {
         eventsList fragment = new eventsList();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+        eventlist = new ArrayList<>();
+        eventStringlist = new ArrayList<>();
         return fragment;
     }
 
@@ -62,15 +83,59 @@ public class eventsList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_events_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_events_list, container, false);
+        eventslist = (ListView)view.findViewById(R.id.listView);
+        Firebase.setAndroidContext(getActivity());
+        eventArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.list_items,eventStringlist);
+        eventslist.setAdapter(eventArrayAdapter);
+        eventArrayAdapter.notifyDataSetChanged();
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
+        eventslist.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long arg3) {
+
+                view.setSelected(true);
+                indexMain = position;
+
+            }
+        });
+        Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/events");
+        Query queryRef = ref.orderByChild("date");
+        queryRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Event newevent = dataSnapshot.getValue(Event.class);
+                eventlist.add(newevent);
+                eventStringlist.add(newevent.toString());
+                eventArrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
+
 
     @Override
     public void onAttach(Context context) {

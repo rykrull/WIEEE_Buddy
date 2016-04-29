@@ -26,10 +26,13 @@ public class addEventDay extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
     private String name;
     private String description;
+    private String location;
+
     private int day;
     private int month;
     private int year;
@@ -49,14 +52,16 @@ public class addEventDay extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
+     * @param param3 Parameter 3.
      * @return A new instance of fragment addEventDay.
      */
     // TODO: Rename and change types and number of parameters
-    public static addEventDay newInstance(String param1, String param2) {
+    public static addEventDay newInstance(String param1, String param2, String param3) {
         addEventDay fragment = new addEventDay();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,6 +72,7 @@ public class addEventDay extends Fragment {
         if (getArguments() != null) {
             name = getArguments().getString(ARG_PARAM1);
             description = getArguments().getString(ARG_PARAM2);
+            location = getArguments().getString(ARG_PARAM3);
         }
     }
 
@@ -90,7 +96,7 @@ public class addEventDay extends Fragment {
                 year = dateSel.getYear();
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main2container, addEventDate.newInstance(name, description, day, month, year))
+                        .replace(R.id.main2container, addEventDate.newInstance(name, description, day, month, year, location))
                         .addToBackStack(null)
                         .commit();
             }

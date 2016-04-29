@@ -11,13 +11,19 @@ public class Event {
     private String endTime;
     private String date;
     private String description;
+    private String location;
 
-    public Event(String name, String startTime, String endTime, String date, String description){
+    public Event(){
+
+    }
+
+    public Event(String name, String startTime, String endTime, String date, String description, String location){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
         this.description = description;
+        this.location = location;
     }
 
     public String getName(){
@@ -38,5 +44,14 @@ public class Event {
 
     public String getDescription(){
         return description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+
+    public String toString(){
+        return name + "\n" + date + "  " + startTime + " - " + endTime + "\n" + location;
     }
 }

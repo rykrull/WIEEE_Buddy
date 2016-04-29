@@ -24,6 +24,8 @@ import com.example.rkrul.wieeebuddy.R;
 public class addNewEvent extends Fragment {
     private EditText name;
     private EditText description;
+    private EditText roomNumber;
+    private EditText building;
     private Button next;
 
     private OnFragmentInteractionListener mListener;
@@ -61,6 +63,8 @@ public class addNewEvent extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_new_event, container, false);
         name = (EditText)view.findViewById(R.id.eventName);
         description = (EditText)view.findViewById(R.id.eventDescription);
+        roomNumber = (EditText)view.findViewById(R.id.eventRoomNumber);
+        building = (EditText)view.findViewById(R.id.eventBuilding);
         next = (Button)view.findViewById(R.id.neweventbutton);
         return view;
     }
@@ -74,11 +78,16 @@ public class addNewEvent extends Fragment {
                     Toast.makeText(getActivity(), "Please enter event name",
                             Toast.LENGTH_SHORT).show();
                 }
+                else if(building.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "Please enter building location",
+                            Toast.LENGTH_SHORT).show();
+                }
                 else {
                     getFragmentManager()
                             .beginTransaction()
                             .replace(R.id.main2container, addEventDay.newInstance(
-                                    name.getText().toString(),description.getText().toString()))
+                                    name.getText().toString(),description.getText().toString(),
+                                    roomNumber.getText().toString()+" "+building.getText().toString()))
                             .addToBackStack(null)
                             .commit();
                 }

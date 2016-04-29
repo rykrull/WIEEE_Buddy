@@ -9,6 +9,7 @@ public class User {
     private int uwId;
     private String wiscmail;
 
+
     public User(String userName, String fullName, int uwId, String wiscmail){
         this.userName = userName;
         this.fullName = fullName;

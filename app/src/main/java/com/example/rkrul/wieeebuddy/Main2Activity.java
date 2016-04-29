@@ -14,18 +14,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.firebase.client.Firebase;
+
 import layout.addEventDate;
 import layout.addEventDay;
 import layout.addNewEvent;
+import layout.eventsList;
 import layout.login;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
-        addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener{
+        addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener, eventsList.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,6 +56,11 @@ public class Main2Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main2container, eventsList.newInstance())
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

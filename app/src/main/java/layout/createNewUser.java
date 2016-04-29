@@ -40,7 +40,7 @@ public class createNewUser extends Fragment {
     private Button cnubutton;
     private EditText cnufirstname;
     private EditText cnuemailconfirm;
-    private EditText cnuusername;
+    private EditText cnuemail;
     private EditText cnupassword;
     private EditText cnupasswordconfirm;
 
@@ -82,7 +82,7 @@ public class createNewUser extends Fragment {
         cnubutton = (Button)view.findViewById(R.id.cnubutton);
         cnufirstname = (EditText)view.findViewById(R.id.cnufirstname);
         cnuemailconfirm = (EditText)view.findViewById(R.id.cnuemailconfirm);
-        cnuusername = (EditText)view.findViewById(R.id.cnuusername);
+        cnuemail = (EditText)view.findViewById(R.id.cnuusername);
         cnupassword = (EditText)view.findViewById(R.id.cnupassword);
         cnupasswordconfirm = (EditText)view.findViewById(R.id.cnupasswordconfirm);
 
@@ -96,9 +96,9 @@ public class createNewUser extends Fragment {
             @Override
             public void onClick(View v) {
                 if(cnupassword.getText().toString().equals(cnupasswordconfirm.getText().toString())){
-                    if(cnuemailconfirm.getText().toString().equals(cnuusername.getText().toString())) {
+                    if(cnuemailconfirm.getText().toString().equals(cnuemail.getText().toString())) {
                         Firebase myFirebaseRef = new Firebase("https://wieeebuddy.firebaseio.com/");
-                        myFirebaseRef.createUser(cnuusername.getText().toString(), cnupassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
+                        myFirebaseRef.createUser(cnuemail.getText().toString(), cnupassword.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
                             @Override
                             public void onSuccess(Map<String, Object> result) {
                                 Intent newIntent = new Intent(getActivity(), Main2Activity.class);
