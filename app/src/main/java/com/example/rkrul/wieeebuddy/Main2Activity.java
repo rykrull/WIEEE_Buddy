@@ -1,6 +1,7 @@
 package com.example.rkrul.wieeebuddy;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -67,6 +68,13 @@ public class Main2Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.inflateHeaderView(R.layout.nav_header_main2);
+        name = (TextView) header.findViewById(R.id.usersName);
+        email = (TextView) header.findViewById(R.id.email);
+        name.setText(user.getFullName());
+        email.setText(user.getEmail());
+
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main2container, eventsList.newInstance())
@@ -124,9 +132,13 @@ public class Main2Activity extends AppCompatActivity
                     .replace(R.id.main2container, manageAccount.newInstance())
                     .addToBackStack(null)
                     .commit();
+        } else if (id == R.id.nav_logout) {
+            Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
+            ref.unauth();
+            Intent newIntent = new Intent(this, MainActivity.class);
+            startActivity(newIntent);
+            
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
