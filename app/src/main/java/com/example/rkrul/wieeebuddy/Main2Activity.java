@@ -25,10 +25,12 @@ import layout.addNewEvent;
 import layout.eventsList;
 import layout.login;
 import layout.manageAccount;
+import layout.openEvent;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
-        addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener, eventsList.OnFragmentInteractionListener{
+        addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener,
+        eventsList.OnFragmentInteractionListener, openEvent.OnFragmentInteractionListener{
 
     private User user;
     private TextView name;
@@ -121,7 +123,11 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_my_calender) {
-            // Handle the camera action
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main2container, eventsList.newInstance())
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

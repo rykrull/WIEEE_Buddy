@@ -7,9 +7,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
@@ -19,36 +18,34 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 
-import java.util.ArrayList;
-
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link eventsList.OnFragmentInteractionListener} interface
+ * {@link openEvent.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link eventsList#newInstance} factory method to
+ * Use the {@link openEvent#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class eventsList extends Fragment {
+public class openEvent extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
-    private static ArrayList<Event> eventlist;
-    private static ArrayList<String> eventStringlist;
-    private static ArrayAdapter<String> eventArrayAdapter;
 
-    private ListView eventslist;
+    private TextView name;
+    private TextView description;
+    private TextView date;
+    private TextView location;
+    private Button gpsattend;
+
+    private String eventName;
+    private Event passedEvent;
 
     private OnFragmentInteractionListener mListener;
 
-    public eventsList() {
-
+    public openEvent() {
         // Required empty public constructor
     }
 
@@ -56,15 +53,15 @@ public class eventsList extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment eventsList.
+     * @param param1 Parameter 1.
+     * @return A new instance of fragment openEvent.
      */
     // TODO: Rename and change types and number of parameters
-    public static eventsList newInstance() {
-        eventsList fragment = new eventsList();
+    public static openEvent newInstance(Event param1) {
+        openEvent fragment = new openEvent();
         Bundle args = new Bundle();
+        args.putSerializable(ARG_PARAM1, param1);
         fragment.setArguments(args);
-        eventlist = new ArrayList<>();
-        eventStringlist = new ArrayList<>();
         return fragment;
     }
 
@@ -72,46 +69,40 @@ public class eventsList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            passedEvent = (Event)getArguments().getSerializable(ARG_PARAM1);
         }
     }
+
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_events_list, container, false);
-        eventslist = (ListView)view.findViewById(R.id.listView);
-        Firebase.setAndroidContext(getActivity());
-        eventArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.list_items,eventStringlist);
-        eventslist.setAdapter(eventArrayAdapter);
-        eventArrayAdapter.notifyDataSetChanged();
+        View view = inflater.inflate(R.layout.fragment_open_event, container, false);
+        name = (TextView)view.findViewById(R.id.openname);
+        description = (TextView)view.findViewById(R.id.opendescription);
+        location = (TextView)view.findViewById(R.id.openlocation);
+        date = (TextView)view.findViewById(R.id.opendate);
+        gpsattend = (Button)view.findViewById(R.id.openGPSbutton);
+
         return view;
     }
 
     @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
-        eventslist.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long arg3) {
-                view.setSelected(true);
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main2container, openEvent.newInstance(eventlist.get(position)))
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+    public void onViewCreated(final View view,Bundle savedInstanceState){
         Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/events");
-        Query queryRef = ref.orderByChild("date");
+        Query queryRef = ref.orderByChild("name");
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Event newevent = dataSnapshot.getValue(Event.class);
-                eventlist.add(newevent);
-                eventStringlist.add(newevent.toString());
-                eventArrayAdapter.notifyDataSetChanged();
+                if (newevent.getName().equals(passedEvent.getName())){
+                    name.setText(passedEvent.getName());
+                    description.setText(passedEvent.getDescription());
+                    location.setText(passedEvent.getLocation());
+                    date.setText(passedEvent.getDate());
+                }
             }
 
             @Override
@@ -135,7 +126,6 @@ public class eventsList extends Fragment {
             }
         });
     }
-
 
     @Override
     public void onAttach(Context context) {
