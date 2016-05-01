@@ -136,9 +136,10 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
+
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main2container, manageAccount.newInstance())
+                    .replace(R.id.main2container, manageAccount.newInstance(user))
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_logout) {
