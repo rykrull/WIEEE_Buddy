@@ -9,6 +9,7 @@
     android:focusable="false"
     android:id="@+id/text_view"
     android:layout_gravity="center"
+    android:textColor="#FFFFFFFF"
     >
 
 </TextView>
