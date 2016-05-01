@@ -113,7 +113,6 @@ public class signInUser extends Fragment {
                     @Override
                     public void onAuthenticated(AuthData authData) {
 
-                        User user = new User();
                         Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/users");
                         Query queryRef = ref.orderByChild("email");
 

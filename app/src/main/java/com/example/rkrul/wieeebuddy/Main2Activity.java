@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,8 +23,8 @@ import com.firebase.client.Firebase;
 import layout.addEventDate;
 import layout.addEventDay;
 import layout.addNewEvent;
+import layout.contactInfo;
 import layout.eventsList;
-import layout.login;
 import layout.manageAccount;
 import layout.openEvent;
 
@@ -87,8 +88,12 @@ public class Main2Activity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Fragment curr = this.getFragmentManager().findFragmentById(R.id.main2container);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if(curr instanceof eventsList) {
+            Intent newIntent = new Intent(this, MainActivity.class);
+            startActivity(newIntent);
         } else {
             super.onBackPressed();
         }
@@ -145,7 +150,11 @@ public class Main2Activity extends AppCompatActivity
             startActivity(newIntent);
             
         } else if (id == R.id.nav_share) {
-
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main2container, contactInfo.newInstance())
+                    .addToBackStack(null)
+                    .commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -156,4 +165,5 @@ public class Main2Activity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
     }
+
 }
