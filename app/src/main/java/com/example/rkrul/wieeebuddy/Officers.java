@@ -7,25 +7,25 @@ import java.io.Serializable;
  */
 public class Officers implements Serializable {
 
-    private String Name;
-    private String Email;
-    private String Position;
+    private String name;
+    private String email;
+    private String position;
 
 
     public Officers(){
     }
 
-    public Officers(String Name, String Email, String Position){
-        this.Name  = Name;
-        this.Email = Email;
-        this.Position = Position;
+    public Officers(String name, String email, String position){
+        this.name  = name;
+        this.email = email;
+        this.position = position;
     }
 
-    public String getName(){return Name;}
-    public String getEmail(){return Email;}
-    public String getPosition(){return Position;}
+    public String getName(){return name;}
+    public String getEmail(){return email;}
+    public String getPosition(){return position;}
 
     public String toString(){
-        return "Name: " + Name + "\n" + "Position " + Position + "\n" + "Email: " + Email;
+        return "Name: " + name + "\n" + "Position: " + position + "\n" + "Email: " + email;
     }
 }
