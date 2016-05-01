@@ -162,13 +162,14 @@
                 android:id="@+id/newName"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="New User Name" />
+                android:hint="New Name" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Update Name"
-                android:id="@+id/updateName" />
+                android:id="@+id/updateName"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
     </ScrollView>
 

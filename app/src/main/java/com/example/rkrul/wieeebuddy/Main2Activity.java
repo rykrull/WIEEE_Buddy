@@ -81,8 +81,8 @@ public class Main2Activity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if(curr instanceof eventsList) {
-            Intent newIntent = new Intent(this, MainActivity.class);
-            startActivity(newIntent);
+            //Intent newIntent = new Intent(this, MainActivity.class);
+            //startActivity(newIntent);
         } else {
             super.onBackPressed();
         }

@@ -168,8 +168,12 @@ public class manageAccount extends Fragment {
                             @Override
                             public void onAuthenticated(AuthData authData) {
                                 Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/")
-                                        .child("users").child(user.getFullName()).child("fullName");
-                                userRef.setValue(newName.getText().toString());
+                                        .child("users").child(user.getFullName());
+                                userRef.removeValue();
+                                userRef.setValue(new User(user.getEmail(), newName.getText().toString(),
+                                        user.getUwId(), user.getEventsAttended(), user.getPoints()));
+                                Toast.makeText(getActivity(), "Name Updated!",
+                                        Toast.LENGTH_SHORT).show();
                             }
                             @Override
                             public void onAuthenticationError(FirebaseError firebaseError) {
@@ -190,8 +194,13 @@ public class manageAccount extends Fragment {
                             @Override
                             public void onAuthenticated(AuthData authData) {
                                 Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/")
-                                        .child("users").child(user.getFullName()).child("uwId");
-                                userRef.setValue(newID.getText().toString());
+                                        .child("users").child(user.getFullName());
+                                userRef.removeValue();
+                                userRef.setValue(new User(user.getEmail(), user.getFullName(), newID.getText().toString(),
+                                        user.getEventsAttended(), user.getPoints()));
+                                Toast.makeText(getActivity(), "UW ID Updated!",
+                                        Toast.LENGTH_SHORT).show();
+
 
                             }
                             @Override

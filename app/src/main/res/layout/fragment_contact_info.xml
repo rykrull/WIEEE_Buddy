@@ -13,8 +13,9 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="440dp"
         android:id="@+id/contacts"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.79" />
 
 </LinearLayout>
