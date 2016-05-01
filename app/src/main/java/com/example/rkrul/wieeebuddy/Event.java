@@ -66,9 +66,9 @@ public class Event implements Serializable{
     public int getAttendees(){
         return attendees;
     }
-    public int addAttendees(){
+
+    public void addAttendees(){
         attendees++;
-        return attendees;
     }
 
     public String toString(){
