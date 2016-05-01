@@ -11,25 +11,28 @@ public class User implements Serializable {
 
     private String uwId;
     private String email;
-    private String fullName;
+    private String userId;
     private ArrayList<String> eventsAttended;
     private int points;
+    private String fullName;
 
     public User(){
 
     }
 
-    public User(String email, String fullName, String uwId, ArrayList<String> eventsAttended, int points){
+    public User(String userId, String email, String fullName, String uwId, ArrayList<String> eventsAttended, int points){
         this.fullName = fullName;
         this.uwId = uwId;
         this.email = email;
         this.eventsAttended = eventsAttended;
         this.points = points;
+        this.userId = userId;
     }
 
-    public String getFullName(){
-        return fullName;
+    public String getUserId(){
+        return userId;
     }
+    public String getFullName(){return fullName;}
     public String getUwId(){
         return uwId;
     }

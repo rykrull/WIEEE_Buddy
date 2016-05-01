@@ -37,6 +37,7 @@ public class Main2Activity extends AppCompatActivity
         projectsList.OnFragmentInteractionListener{
 
     private User user;
+    private String Uid;
     private TextView name;
     private TextView email;
 
@@ -47,6 +48,7 @@ public class Main2Activity extends AppCompatActivity
         Firebase.setAndroidContext(this);
 
         user = (User)getIntent().getSerializableExtra("user");
+        Uid = (String)getIntent().getSerializableExtra("authData");
 
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -80,10 +82,12 @@ public class Main2Activity extends AppCompatActivity
         Fragment curr = this.getFragmentManager().findFragmentById(R.id.main2container);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if(curr instanceof eventsList) {
-            //Intent newIntent = new Intent(this, MainActivity.class);
-            //startActivity(newIntent);
-        } else {
+        }
+        else if(curr instanceof eventsList) {
+            Intent newIntent = new Intent(this, MainActivity.class);
+            startActivity(newIntent);
+        }
+        else {
             super.onBackPressed();
         }
     }

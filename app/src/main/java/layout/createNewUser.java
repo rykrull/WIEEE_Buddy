@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.R;
 import com.example.rkrul.wieeebuddy.User;
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
@@ -108,17 +109,29 @@ public class createNewUser extends Fragment {
                             @Override
                             public void onSuccess(Map<String, Object> result) {
                                 Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
-                                Firebase userRef = ref.child("users").child(cnufirstname.getText().toString());
-                                ArrayList<String> tmp = new ArrayList<String>();
-                                tmp.add(" ");
-                                User user = new User(cnuemailconfirm.getText().toString(),
-                                        cnufirstname.getText().toString(),
-                                        studentID.getText().toString(),
-                                        tmp, 0);
-                                userRef.setValue(user);
-                                Intent newIntent = new Intent(getActivity(), Main2Activity.class);
-                                newIntent.putExtra("user", user);
-                                startActivity(newIntent);
+                                ref.authWithPassword(cnuusername.getText().toString(),
+                                        cnupasswordconfirm.getText().toString(), new Firebase.AuthResultHandler() {
+                                            @Override
+                                            public void onAuthenticated(AuthData authData) {
+                                                Firebase newUserRef = new Firebase("https://wieeebuddy.firebaseio.com/");
+                                                Firebase userRef = newUserRef.child("users").child(authData.getUid());
+                                                ArrayList<String> tmp = new ArrayList<String>();
+                                                tmp.add(" ");
+                                                User user = new User(authData.getUid() ,cnuemailconfirm.getText().toString(),
+                                                        cnufirstname.getText().toString(),
+                                                        studentID.getText().toString(),
+                                                        tmp, 0);
+                                                userRef.setValue(user);
+                                                Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                                                newIntent.putExtra("user", user);
+                                                newIntent.putExtra("authData", authData.getUid());
+                                                startActivity(newIntent);
+                                            }
+                                            @Override
+                                            public void onAuthenticationError(FirebaseError firebaseError) {
+                                                // there was an error
+                                            }
+                                        });
                             }
 
                             @Override

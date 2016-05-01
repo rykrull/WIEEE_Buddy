@@ -109,7 +109,8 @@ public class login extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent newIntent = new Intent(getActivity(), Main2Activity.class);
-                newIntent.putExtra("user", new User("GUEST@guest.guest","Freeloader"," ",null, 0));
+                newIntent.putExtra("user", new User("-1","GUEST@guest.guest","Freeloader"," ",null, 0));
+                newIntent.putExtra("authData", "-1");
                 startActivity(newIntent);
             }
         });

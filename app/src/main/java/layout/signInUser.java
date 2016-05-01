@@ -43,6 +43,7 @@ public class signInUser extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String Uid;
 
     private Button siResetButton;
     private Button sibutton;
@@ -114,7 +115,7 @@ public class signInUser extends Fragment {
 
                         Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/users");
                         Query queryRef = ref.orderByChild("email");
-
+                        Uid = authData.getUid();
                         queryRef.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -122,6 +123,7 @@ public class signInUser extends Fragment {
                                 if(curr.getEmail().equals(siusername.getText().toString())){
                                     Intent newIntent = new Intent(getActivity(), Main2Activity.class);
                                     newIntent.putExtra("user", curr);
+                                    newIntent.putExtra("authData", Uid);
                                     startActivity(newIntent);
                                 }
                             }
@@ -139,7 +141,7 @@ public class signInUser extends Fragment {
                         });
 
                         Intent newIntent = new Intent(getActivity(), Main2Activity.class);
-                        newIntent.putExtra("user", new User(" "," "," ",null, 0));
+                        newIntent.putExtra("user", new User(" "," "," "," ",null, 0));
                         startActivity(newIntent);
                     }
                     @Override
