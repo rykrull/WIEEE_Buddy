@@ -72,6 +72,6 @@ public class Event implements Serializable{
     }
 
     public String toString(){
-        return name + "\n" + date + "  " + startTime + " - " + endTime + "\n" + location;
+        return name + "\n" + date + "  " + startTime + " - " + endTime + "\n" + location+"\n";
     }
 }

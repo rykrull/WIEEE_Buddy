@@ -111,7 +111,6 @@ public class Main2Activity extends AppCompatActivity
                     .commit();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
