@@ -31,12 +31,10 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class eventsList extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private static ArrayList<Event> eventlist;
@@ -58,7 +56,6 @@ public class eventsList extends Fragment {
      *
      * @return A new instance of fragment eventsList.
      */
-    // TODO: Rename and change types and number of parameters
     public static eventsList newInstance() {
         eventsList fragment = new eventsList();
         Bundle args = new Bundle();
@@ -165,7 +162,6 @@ public class eventsList extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

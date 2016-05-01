@@ -5,13 +5,20 @@
     tools:context="layout.openEvent">
 
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Event Name"
-        android:id="@+id/openname"
-        android:layout_gravity="center_horizontal|top" />
+        android:text="Use GPS to confirm attendance"
+        android:id="@+id/openGPSbutton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I&apos;m interested in attending"
+        android:id="@+id/openinterstbutton"
+        android:layout_gravity="center_horizontal|bottom" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,17 +26,32 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Event location"
         android:id="@+id/openlocation"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="40dp" />
+        android:layout_gravity="left|top"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Event Name"
+        android:id="@+id/openname"
+        android:layout_gravity="left|top"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Date  Start Time - End Time"
         android:id="@+id/opendate"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="80dp" />
+        android:layout_gravity="left|top"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -37,16 +59,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Event Description"
         android:id="@+id/opendescription"
-        android:layout_gravity="center"
+        android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Use GPS to confirm attendance"
-        android:id="@+id/openGPSbutton"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp" />
 
 </FrameLayout>

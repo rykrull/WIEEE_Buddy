@@ -27,11 +27,9 @@ import com.firebase.client.Query;
  * create an instance of this fragment.
  */
 public class openEvent extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
 
     private TextView name;
@@ -39,6 +37,7 @@ public class openEvent extends Fragment {
     private TextView date;
     private TextView location;
     private Button gpsattend;
+    private Button interestattend;
 
     private String eventName;
     private Event passedEvent;
@@ -56,7 +55,6 @@ public class openEvent extends Fragment {
      * @param param1 Parameter 1.
      * @return A new instance of fragment openEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public static openEvent newInstance(Event param1) {
         openEvent fragment = new openEvent();
         Bundle args = new Bundle();
@@ -85,7 +83,7 @@ public class openEvent extends Fragment {
         location = (TextView)view.findViewById(R.id.openlocation);
         date = (TextView)view.findViewById(R.id.opendate);
         gpsattend = (Button)view.findViewById(R.id.openGPSbutton);
-
+        interestattend = (Button)view.findViewById(R.id.openinterstbutton);
         return view;
     }
 
@@ -99,9 +97,9 @@ public class openEvent extends Fragment {
                 Event newevent = dataSnapshot.getValue(Event.class);
                 if (newevent.getName().equals(passedEvent.getName())){
                     name.setText(passedEvent.getName());
-                    description.setText(passedEvent.getDescription());
-                    location.setText(passedEvent.getLocation());
-                    date.setText(passedEvent.getDate());
+                    description.setText("Description: "+passedEvent.getDescription());
+                    location.setText("Location: "+passedEvent.getLocation());
+                    date.setText("Time: "+passedEvent.getDate()+"   "+passedEvent.getStartTime()+" - "+passedEvent.getEndTime());
                 }
             }
 
@@ -155,7 +153,6 @@ public class openEvent extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

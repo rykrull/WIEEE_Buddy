@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 
 import com.example.rkrul.wieeebuddy.Main2Activity;
-import com.example.rkrul.wieeebuddy.MainDirectory;
 import com.example.rkrul.wieeebuddy.R;
 import com.example.rkrul.wieeebuddy.User;
 

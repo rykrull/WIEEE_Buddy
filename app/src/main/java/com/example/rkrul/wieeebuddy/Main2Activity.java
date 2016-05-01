@@ -1,6 +1,7 @@
 package com.example.rkrul.wieeebuddy;
 
 import android.app.Fragment;
+import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,11 +27,13 @@ import layout.eventsList;
 import layout.login;
 import layout.manageAccount;
 import layout.openEvent;
+import layout.projectsList;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
         addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener,
-        eventsList.OnFragmentInteractionListener, openEvent.OnFragmentInteractionListener{
+        eventsList.OnFragmentInteractionListener, openEvent.OnFragmentInteractionListener,
+        projectsList.OnFragmentInteractionListener{
 
     private User user;
     private TextView name;
@@ -47,20 +50,6 @@ public class Main2Activity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main2container, addNewEvent.newInstance())
-                        .addToBackStack(null)
-                        .commit();
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -109,7 +98,12 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.createEvent) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main2container, addNewEvent.newInstance())
+                    .addToBackStack(null)
+                    .commit();
             return true;
         }
 
@@ -129,7 +123,11 @@ public class Main2Activity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_gallery) {
-
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main2container, projectsList.newInstance())
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
