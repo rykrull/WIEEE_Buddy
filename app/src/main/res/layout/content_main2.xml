@@ -12,6 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main2"
     tools:context="com.example.rkrul.wieeebuddy.Main2Activity"
-    android:id="@+id/main2container">
+    android:id="@+id/main2container"
+    android:background="@drawable/dimcircuit">
 
 </RelativeLayout>
