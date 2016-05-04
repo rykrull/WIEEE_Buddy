@@ -9,14 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +33,7 @@ import com.firebase.client.Query;
 public class openEvent extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
 
@@ -41,6 +46,7 @@ public class openEvent extends Fragment {
     private Button interestattend;
 
     private String eventName;
+    private User user;
     private Event passedEvent;
 
     private OnFragmentInteractionListener mListener;
@@ -56,10 +62,11 @@ public class openEvent extends Fragment {
      * @param param1 Parameter 1.
      * @return A new instance of fragment openEvent.
      */
-    public static openEvent newInstance(Event param1) {
+    public static openEvent newInstance(Event param1, User param2) {
         openEvent fragment = new openEvent();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, param1);
+        args.putSerializable(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,6 +76,7 @@ public class openEvent extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             passedEvent = (Event)getArguments().getSerializable(ARG_PARAM1);
+            user = (User)getArguments().getSerializable(ARG_PARAM2);
         }
     }
 
@@ -124,6 +132,23 @@ public class openEvent extends Fragment {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
+            }
+        });
+        gpsattend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if(gps){
+                    Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/").child("users")
+                            .child(user.getUserId()).child("eventsAttended");
+                    ArrayList<String> tmp = user.getEventsAttended();
+                    if(!tmp.contains(passedEvent.getName())){
+                        tmp.add(passedEvent.getName());
+                        user.setEventsAttended(tmp);
+                        userRef.setValue(tmp);
+                        Toast.makeText(getActivity(), "Attended Event!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                //}
             }
         });
     }

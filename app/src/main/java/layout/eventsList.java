@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -37,6 +38,7 @@ public class eventsList extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private User user;
     private static ArrayList<Event> eventlist;
     private static ArrayList<String> eventStringlist;
     private static ArrayAdapter<String> eventArrayAdapter;
@@ -56,10 +58,11 @@ public class eventsList extends Fragment {
      *
      * @return A new instance of fragment eventsList.
      */
-    public static eventsList newInstance() {
+    public static eventsList newInstance(User param1) {
         eventsList fragment = new eventsList();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+        args.putSerializable(ARG_PARAM1, param1);
         eventlist = new ArrayList<>();
         eventStringlist = new ArrayList<>();
         return fragment;
@@ -69,8 +72,8 @@ public class eventsList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+           user = (User)getArguments().getSerializable(ARG_PARAM1);
+
         }
     }
 
@@ -95,7 +98,7 @@ public class eventsList extends Fragment {
                 view.setSelected(true);
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main2container, openEvent.newInstance(eventlist.get(position)))
+                        .replace(R.id.main2container, openEvent.newInstance(eventlist.get(position), user))
                         .addToBackStack(null)
                         .commit();
             }

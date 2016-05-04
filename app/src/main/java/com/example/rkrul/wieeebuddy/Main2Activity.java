@@ -70,7 +70,7 @@ public class Main2Activity extends AppCompatActivity
 
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main2container, eventsList.newInstance())
+                .replace(R.id.main2container, eventsList.newInstance(user))
                 .addToBackStack(null)
                 .commit();
     }
@@ -129,7 +129,7 @@ public class Main2Activity extends AppCompatActivity
             toolbar.setTitle("Upcoming Events");
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main2container, eventsList.newInstance())
+                    .replace(R.id.main2container, eventsList.newInstance(user))
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_gallery) {

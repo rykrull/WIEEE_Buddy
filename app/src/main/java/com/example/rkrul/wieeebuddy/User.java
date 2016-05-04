@@ -41,4 +41,5 @@ public class User implements Serializable {
     }
     public int getPoints(){return points;}
     public ArrayList<String> getEventsAttended(){ return eventsAttended;}
+    public void setEventsAttended(ArrayList<String> e){this.eventsAttended = e; return; }
 }

@@ -128,6 +128,7 @@
                 android:id="@+id/idPassword"
                 android:hint="Password"
                 android:layout_marginLeft="20dp"
+                android:inputType="textPassword"
                 android:layout_marginRight="20dp" />
 
             <EditText
@@ -163,6 +164,7 @@
                 android:id="@+id/nPassword"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:inputType="textPassword"
                 android:hint="Password" />
 
             <EditText
