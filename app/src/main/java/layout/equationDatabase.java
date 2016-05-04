@@ -35,12 +35,9 @@ public class equationDatabase extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     private OnFragmentInteractionListener mListener;
-    private ListView plist;
-    private static ArrayList<String> prolist;
-    private static ArrayList<Project> proProlist;
-    private static ArrayAdapter<String> proAdapter;
-    private static MyCustomAdapter adapter;
-
+    private ListView eqList;
+    private static ArrayList<String> classNameList;
+    private ArrayAdapter<String> adapter;
     public equationDatabase() {
         // Required empty public constructor
     }
@@ -63,8 +60,9 @@ public class equationDatabase extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
-        prolist = new ArrayList<>();
-        proProlist = new ArrayList<>();
+        classNameList = new ArrayList<>();
+        classNameList.add("ECE 230");
+        classNameList.add("ECE 330");
     }
 
     @Override
@@ -72,55 +70,13 @@ public class equationDatabase extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Firebase.setAndroidContext(getActivity());
-        View view = inflater.inflate(R.layout.fragment_projects_list, container, false);
-        plist = (ListView)view.findViewById(R.id.listView2);
-        adapter = new MyCustomAdapter(prolist,proProlist,getActivity());
-        proAdapter = new ArrayAdapter<>(getActivity(),R.layout.list_items,prolist);
-        plist.setAdapter(adapter);
+        View view = inflater.inflate(R.layout.fragment_equation_database, container, false);
+        eqList = (ListView)view.findViewById(R.id.listView3);
+        adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_items,classNameList);
+        eqList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         return view;
 }
-
-    @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
-        plist.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long arg3) {
-                view.setSelected(true);
-            }
-        });
-        Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/projects");
-        Query queryRef = ref.orderByChild("date");
-        queryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Project newproject = dataSnapshot.getValue(Project.class);
-                proProlist.add(newproject);
-                prolist.add(newproject.toString());
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-    }
 
     @Override
     public void onAttach(Context context) {
