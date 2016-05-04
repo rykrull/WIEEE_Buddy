@@ -1,5 +1,7 @@
 package com.example.rkrul.wieeebuddy;
 
+import android.text.Html;
+
 import java.io.Serializable;
 
 /**
@@ -26,6 +28,7 @@ public class Officers implements Serializable {
     public String getPosition(){return position;}
 
     public String toString(){
-        return "Name: " + name + "\n" + "Position: " + position + "\n" + "Email: " + email+"\n";
+        return Html.fromHtml("<font color='#981717'>Name:</font> ") + name + "\n" + "Position: " + position + "\n" + "Email: " + email+"\n";
+        //Html.fromHtml("RGB colors are <font color='#FF0000'>RED</font>, <font color='#00FF00'>GREEN</font> and <font color='#0000FF'>BLUE</font>")
     }
 }

@@ -98,6 +98,9 @@ public class openEvent extends Fragment {
         interest = (TextView)view.findViewById(R.id.openinterest);
         gpsattend = (Button)view.findViewById(R.id.openGPSbutton);
         interestattend = (Button)view.findViewById(R.id.openinterstbutton);
+        if (passedEvent.getAttendees().contains(user.getFullName())){
+            interestattend.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -115,7 +118,12 @@ public class openEvent extends Fragment {
                     location.setText("Location: "+passedEvent.getLocation());
                     date.setText("Date: "+passedEvent.getDate());
                     time.setText("Time: "+passedEvent.getStartTime()+" - "+passedEvent.getEndTime());
-                    interest.setText(passedEvent.getAttendees()+" people interested");
+                    if(passedEvent.numAttendees() == 1){
+                        interest.setText(passedEvent.numAttendees()+" person interested");
+                    }
+                    else {
+                        interest.setText(passedEvent.numAttendees() + " people interested");
+                    }
                 }
             }
 
@@ -169,6 +177,12 @@ public class openEvent extends Fragment {
                     passedEvent.addAttendees(user.getFullName());
                     ref.setValue(passedEvent);
                     interestattend.setVisibility(View.GONE);
+                    if(passedEvent.numAttendees() == 1){
+                        interest.setText(passedEvent.numAttendees()+" person interested");
+                    }
+                    else {
+                        interest.setText(passedEvent.numAttendees() + " people interested");
+                    }
                 }
 
             }

@@ -122,7 +122,7 @@ public class addEventDate extends Fragment {
                     startTime.setText(hour + ":" + minute + " " + am);
                 }
             }
-        });;
+        });
 
         end.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +141,7 @@ public class addEventDate extends Fragment {
                     endTime.setText(hour + ":" + minute + " " + am);
                 }
             }
-        });;
+        });
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +153,7 @@ public class addEventDate extends Fragment {
                 Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description, location, list);
                 eventRef.setValue(event);
             }
-        });;
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

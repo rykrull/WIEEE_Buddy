@@ -80,6 +80,7 @@
         android:id="@+id/cnubutton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="#981717"
         android:layout_marginBottom="58dp" />
 
     <EditText
