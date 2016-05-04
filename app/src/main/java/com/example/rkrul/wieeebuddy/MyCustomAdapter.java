@@ -79,7 +79,6 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
                     Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/projects").child(plist.get(position).getName());
                     addBtn.setVisibility(View.GONE);
                     deleteBtn.setVisibility(View.VISIBLE);
-                    System.out.println(user.getFullName());
                     plist.get(position).addInterest(user);
                     ref.setValue(plist.get(position));
                     list.set(position, plist.get(position).toString());

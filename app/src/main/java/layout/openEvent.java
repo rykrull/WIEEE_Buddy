@@ -42,12 +42,15 @@ public class openEvent extends Fragment {
     private TextView date;
     private TextView location;
     private TextView time;
+    private TextView interest;
     private Button gpsattend;
     private Button interestattend;
 
     private String eventName;
     private User user;
     private Event passedEvent;
+    private ArrayList<String> list = new ArrayList<String>();
+    private ArrayList<Event> elist = new ArrayList<Event>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,6 +95,7 @@ public class openEvent extends Fragment {
         location = (TextView)view.findViewById(R.id.openlocation);
         date = (TextView)view.findViewById(R.id.opendate);
         time = (TextView)view.findViewById(R.id.opentime);
+        interest = (TextView)view.findViewById(R.id.openinterest);
         gpsattend = (Button)view.findViewById(R.id.openGPSbutton);
         interestattend = (Button)view.findViewById(R.id.openinterstbutton);
         return view;
@@ -111,6 +115,7 @@ public class openEvent extends Fragment {
                     location.setText("Location: "+passedEvent.getLocation());
                     date.setText("Date: "+passedEvent.getDate());
                     time.setText("Time: "+passedEvent.getStartTime()+" - "+passedEvent.getEndTime());
+                    interest.setText(passedEvent.getAttendees()+" people interested");
                 }
             }
 
@@ -151,6 +156,24 @@ public class openEvent extends Fragment {
                 //}
             }
         });
+
+        interestattend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(user.getFullName().equals("Freeloader")){
+                    Toast.makeText(getActivity(), "Sign in or create account",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/events").child(passedEvent.getName());
+                    passedEvent.addAttendees(user.getFullName());
+                    ref.setValue(passedEvent);
+                    interestattend.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
     }
 
     @Override

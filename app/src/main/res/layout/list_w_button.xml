@@ -33,5 +33,4 @@
         android:text="Lost interest"
         android:visibility="gone" />
 
-
 </RelativeLayout>

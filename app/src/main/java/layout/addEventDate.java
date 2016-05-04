@@ -15,6 +15,8 @@ import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
 import com.firebase.client.Firebase;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -146,7 +148,9 @@ public class addEventDate extends Fragment {
             public void onClick(View v) {
                 Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
                 Firebase eventRef = ref.child("events").child(name);
-                Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description, location);
+                ArrayList<String> list = new ArrayList<String>();
+                list.add("Empty");
+                Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description, location, list);
                 eventRef.setValue(event);
             }
         });;

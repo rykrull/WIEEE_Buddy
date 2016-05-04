@@ -6,19 +6,24 @@
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Use GPS to confirm attendance"
         android:id="@+id/openGPSbutton"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="50dp" />
+        android:backgroundTint="#981717"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="I&apos;m interested in attending"
         android:id="@+id/openinterstbutton"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,5 +79,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="180dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="people interested"
+        android:id="@+id/openinterest"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="100dp" />
 
 </FrameLayout>
