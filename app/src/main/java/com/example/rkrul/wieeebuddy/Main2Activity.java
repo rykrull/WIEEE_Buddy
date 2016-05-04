@@ -42,6 +42,7 @@ public class Main2Activity extends AppCompatActivity
     private String Uid;
     private TextView name;
     private TextView email;
+    private Toolbar toolbar;
 
 
     @Override
@@ -53,8 +54,9 @@ public class Main2Activity extends AppCompatActivity
         Uid = (String)getIntent().getSerializableExtra("authData");
 
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Upcoming Events");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -110,6 +112,7 @@ public class Main2Activity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.createEvent) {
+            toolbar.setTitle("Create Event");
             getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main2container, addNewEvent.newInstance())
@@ -127,18 +130,21 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_my_calender) {
+            toolbar.setTitle("Upcoming Events");
             getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main2container, eventsList.newInstance())
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_gallery) {
+            toolbar.setTitle("Projects");
             getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main2container, projectsList.newInstance(user))
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_slideshow) {
+            toolbar.setTitle("Equation Database");
             getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main2container, equationDatabase.newInstance())
@@ -150,6 +156,7 @@ public class Main2Activity extends AppCompatActivity
                         Toast.LENGTH_SHORT).show();
             }
             else {
+                toolbar.setTitle("Manage Account");
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main2container, manageAccount.newInstance(user))
@@ -163,6 +170,7 @@ public class Main2Activity extends AppCompatActivity
             startActivity(newIntent);
             
         } else if (id == R.id.nav_share) {
+            toolbar.setTitle("Contact Members");
             getFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main2container, contactInfo.newInstance())
