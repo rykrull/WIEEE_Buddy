@@ -103,6 +103,57 @@ public class openEvent extends Fragment {
         date = (TextView) view.findViewById(R.id.opendate);
         gpsattend = (Button) view.findViewById(R.id.openGPSbutton);
         interestattend = (Button) view.findViewById(R.id.openinterstbutton);
+
+
+
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+//                Toast.makeText(getActivity(), "Lat: "+latitude+ " Long: " + longitude,
+//                        Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+
+            }
+        };
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET
+                }, 10);
+
+                return view;
+            }
+        } else {
+            configureButton();
+        }
+
+
+
+
         return view;
     }
 
@@ -146,50 +197,7 @@ public class openEvent extends Fragment {
 
         /////////////////////////GPS///////////////////////////
 
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-//                Toast.makeText(getActivity(), "Lat: "+latitude+ " Long: " + longitude,
-//                        Toast.LENGTH_SHORT).show();
 
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-
-            }
-        };
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.INTERNET
-                }, 10);
-
-                return;
-            }
-        } else {
-            configureButton();
-        }
 
 
         ///////////////////////////////////////////////////////
@@ -265,7 +273,7 @@ public class openEvent extends Fragment {
                     }
                 }
                 locationManager.requestLocationUpdates("gps", 5, 0, locationListener);
-                
+
 
                 if(latitude<event_latitude+1 && latitude> event_latitude-1){
 
