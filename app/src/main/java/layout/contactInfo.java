@@ -1,12 +1,17 @@
 package layout;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.example.rkrul.wieeebuddy.Officers;
@@ -92,6 +97,38 @@ public class contactInfo extends Fragment {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
+            }
+        });
+        contact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long arg3) {
+                view.setSelected(true);
+                new AlertDialog.Builder(getActivity())
+                        .setMessage("Would you like to send " + contactlist.get(position).getName()
+                        + " an email?")
+                        .setIcon(R.drawable.wieee_logo)
+                        .setTitle("Contact Officer")
+                        .setPositiveButton("Send Email", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent email = new Intent(Intent.ACTION_SEND);
+                                email.putExtra(Intent.EXTRA_EMAIL, new String[]{contactlist.get(position).getEmail()});
+                                email.putExtra(Intent.EXTRA_SUBJECT, "[WIEEE BUDDY] Subject");
+                                email.putExtra(Intent.EXTRA_TEXT, "body");
+                                email.setType("message/rfc882");
+                                startActivity(Intent.createChooser(email,"Choose email client."));
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setCancelable(false)
+                        .create()
+                        .show();
             }
         });
     }
