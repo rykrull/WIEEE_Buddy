@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.MyCustomAdapter;
 import com.example.rkrul.wieeebuddy.Project;
 import com.example.rkrul.wieeebuddy.R;

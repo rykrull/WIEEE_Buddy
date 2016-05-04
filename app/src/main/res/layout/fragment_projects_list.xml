@@ -8,8 +8,17 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="491dp"
         android:id="@+id/listView2"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Projects"
+        android:id="@+id/textView5"
+        android:layout_gravity="center_horizontal|top"
+        android:textSize="60dp" />
 
 </FrameLayout>

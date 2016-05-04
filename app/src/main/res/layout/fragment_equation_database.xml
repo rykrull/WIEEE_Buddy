@@ -2,22 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="layout.eventsList">
+    tools:context="layout.equationDatabase">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="497dp"
-        android:id="@+id/listView"
+        android:layout_height="495dp"
+        android:id="@+id/listView3"
         android:layout_gravity="center_horizontal|bottom" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Events"
-        android:id="@+id/textView6"
+        android:text="Classes"
+        android:id="@+id/textView"
         android:layout_gravity="center_horizontal|top"
         android:textSize="60dp" />
 </FrameLayout>
