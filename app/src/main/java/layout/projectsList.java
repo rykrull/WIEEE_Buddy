@@ -15,6 +15,7 @@ import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.MyCustomAdapter;
 import com.example.rkrul.wieeebuddy.Project;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 public class projectsList extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
+    private static final String ARG_PARAM1 = "param1";
+
     private OnFragmentInteractionListener mListener;
 
     private ListView plist;
@@ -41,6 +44,8 @@ public class projectsList extends Fragment {
     private static ArrayList<Project> proProlist;
     private static ArrayAdapter<String> proAdapter;
     private static MyCustomAdapter adapter;
+
+    private User user;
 
     public projectsList() {
         // Required empty public constructor
@@ -52,9 +57,10 @@ public class projectsList extends Fragment {
      *
      * @return A new instance of fragment projectsList.
      */
-    public static projectsList newInstance() {
+    public static projectsList newInstance(User param1) {
         projectsList fragment = new projectsList();
         Bundle args = new Bundle();
+        args.putSerializable(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,6 +69,7 @@ public class projectsList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            user = (User)getArguments().getSerializable(ARG_PARAM1);
         }
         prolist = new ArrayList<>();
         proProlist = new ArrayList<>();
@@ -75,7 +82,7 @@ public class projectsList extends Fragment {
         Firebase.setAndroidContext(getActivity());
         View view = inflater.inflate(R.layout.fragment_projects_list, container, false);
         plist = (ListView)view.findViewById(R.id.listView2);
-        adapter = new MyCustomAdapter(prolist,proProlist,getActivity());
+        adapter = new MyCustomAdapter(prolist,proProlist,user,getActivity());
         proAdapter = new ArrayAdapter<>(getActivity(),R.layout.list_items,prolist);
         plist.setAdapter(adapter);
         adapter.notifyDataSetChanged();

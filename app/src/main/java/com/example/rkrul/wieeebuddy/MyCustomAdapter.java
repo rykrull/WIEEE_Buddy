@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 
@@ -17,14 +20,14 @@ import java.util.ArrayList;
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<String>();
     private ArrayList<Project> plist = new ArrayList<Project>();
+    private User user;
     private Context context;
 
-
-
-    public MyCustomAdapter(ArrayList<String> list,ArrayList<Project> plist, Context context) {
+    public MyCustomAdapter(ArrayList<String> list,ArrayList<Project> plist, User user,Context context) {
         this.list = list;
         this.plist = plist;
         this.context = context;
+        this.user = user;
     }
 
     @Override
@@ -59,24 +62,48 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         final Button addBtn = (Button)view.findViewById(R.id.interest_btn);
         final Button deleteBtn = (Button)view.findViewById(R.id.undointerest_btn);
 
+        if (plist.get(position).getUserinterest().contains(user.getFullName())){
+            addBtn.setVisibility(View.GONE);
+            deleteBtn.setVisibility(View.VISIBLE);
+        }
+
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //do something
-                addBtn.setVisibility(View.GONE);
-                deleteBtn.setVisibility(View.VISIBLE);
-                plist.get(position).addInterest();
-                notifyDataSetChanged();
+                if(user.getFullName().equals("Freeloader")){
+                    Toast.makeText(context, "Sign in or create account",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/projects").child(plist.get(position).getName());
+                    addBtn.setVisibility(View.GONE);
+                    deleteBtn.setVisibility(View.VISIBLE);
+                    System.out.println(user.getFullName());
+                    plist.get(position).addInterest(user);
+                    ref.setValue(plist.get(position));
+                    list.set(position, plist.get(position).toString());
+                    notifyDataSetChanged();
+                }
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //do something
-                plist.get(position).addInterest();
-                notifyDataSetChanged();
-                addBtn.setVisibility(View.VISIBLE);
-                deleteBtn.setVisibility(View.GONE);
+                if(user.getFullName().equals("Freeloader")){
+                    Toast.makeText(context, "Sign in or create account",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/projects").child(plist.get(position).getName());
+                    addBtn.setVisibility(View.VISIBLE);
+                    deleteBtn.setVisibility(View.GONE);
+                    plist.get(position).loseInterest(user);
+                    ref.setValue(plist.get(position));
+                    list.set(position, plist.get(position).toString());
+                    notifyDataSetChanged();
+                }
             }
         });
 

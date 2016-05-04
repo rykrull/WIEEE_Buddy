@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 
@@ -133,18 +134,23 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main2container, projectsList.newInstance())
+                    .replace(R.id.main2container, projectsList.newInstance(user))
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main2container, manageAccount.newInstance(user))
-                    .addToBackStack(null)
-                    .commit();
+            if (user.getFullName().equals("Freeloader")){
+                Toast.makeText(this, "Sign in or create account",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else {
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main2container, manageAccount.newInstance(user))
+                        .addToBackStack(null)
+                        .commit();
+            }
         } else if (id == R.id.nav_logout) {
             Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
             ref.unauth();
