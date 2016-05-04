@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Date  Start Time - End Time"
+        android:text="Date  month/day/year"
         android:id="@+id/opendate"
         android:layout_gravity="left|top"
         android:layout_marginTop="100dp"
@@ -55,23 +55,24 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Event Description"
-        android:id="@+id/opendescription"
-        android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
-
-    <TextView
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView"
+        android:text="Time Start Time - End Time"
+        android:id="@+id/opentime"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="140dp"
         android:layout_marginRight="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Event Description"
+        android:id="@+id/opendescription"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="180dp" />
 
 </FrameLayout>

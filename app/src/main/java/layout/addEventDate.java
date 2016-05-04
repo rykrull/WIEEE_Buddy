@@ -8,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
-import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.Firebase;
 
 /**
@@ -26,7 +24,6 @@ import com.firebase.client.Firebase;
  * create an instance of this fragment.
  */
 public class addEventDate extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -35,7 +32,6 @@ public class addEventDate extends Fragment {
     private static final String ARG_PARAM5 = "param5";
     private static final String ARG_PARAM6 = "param6";
 
-    // TODO: Rename and change types of parameters
     private String name;
     private String description;
     private int day;
@@ -65,7 +61,6 @@ public class addEventDate extends Fragment {
      * @param eventDescription Parameter 2.
      * @return A new instance of fragment addEventDate.
      */
-    // TODO: Rename and change types and number of parameters
     public static addEventDate newInstance(String eventName, String eventDescription, int day, int month, int year, String location) {
         addEventDate fragment = new addEventDate();
         Bundle args = new Bundle();

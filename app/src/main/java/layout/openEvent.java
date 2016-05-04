@@ -36,6 +36,7 @@ public class openEvent extends Fragment {
     private TextView description;
     private TextView date;
     private TextView location;
+    private TextView time;
     private Button gpsattend;
     private Button interestattend;
 
@@ -82,6 +83,7 @@ public class openEvent extends Fragment {
         description = (TextView)view.findViewById(R.id.opendescription);
         location = (TextView)view.findViewById(R.id.openlocation);
         date = (TextView)view.findViewById(R.id.opendate);
+        time = (TextView)view.findViewById(R.id.opentime);
         gpsattend = (Button)view.findViewById(R.id.openGPSbutton);
         interestattend = (Button)view.findViewById(R.id.openinterstbutton);
         return view;
@@ -99,7 +101,8 @@ public class openEvent extends Fragment {
                     name.setText(passedEvent.getName());
                     description.setText("Description: "+passedEvent.getDescription());
                     location.setText("Location: "+passedEvent.getLocation());
-                    date.setText("Date: "+passedEvent.getDate()+"   "+passedEvent.getStartTime()+" - "+passedEvent.getEndTime());
+                    date.setText("Date: "+passedEvent.getDate());
+                    time.setText("Time: "+passedEvent.getStartTime()+" - "+passedEvent.getEndTime());
                 }
             }
 
