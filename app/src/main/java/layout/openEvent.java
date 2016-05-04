@@ -150,7 +150,7 @@ public class openEvent extends Fragment {
         gpsattend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if(gps){
+                //if(gps Location is Confirmed){
                     Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/").child("users")
                             .child(user.getUserId()).child("eventsAttended");
                     ArrayList<String> tmp = user.getEventsAttended();
