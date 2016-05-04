@@ -99,7 +99,7 @@ public class openEvent extends Fragment {
                     name.setText(passedEvent.getName());
                     description.setText("Description: "+passedEvent.getDescription());
                     location.setText("Location: "+passedEvent.getLocation());
-                    date.setText("Time: "+passedEvent.getDate()+"   "+passedEvent.getStartTime()+" - "+passedEvent.getEndTime());
+                    date.setText("Date: "+passedEvent.getDate()+"   "+passedEvent.getStartTime()+" - "+passedEvent.getEndTime());
                 }
             }
 

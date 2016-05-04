@@ -26,6 +26,6 @@ public class Officers implements Serializable {
     public String getPosition(){return position;}
 
     public String toString(){
-        return "Name: " + name + "\n" + "Position: " + position + "\n" + "Email: " + email;
+        return "Name: " + name + "\n" + "Position: " + position + "\n" + "Email: " + email+"\n";
     }
 }

@@ -54,8 +54,8 @@ public class equationDatabase extends Fragment {
         if (getArguments() != null) {
         }
         classNameList = new ArrayList<>();
-        classNameList.add("ECE 230");
-        classNameList.add("ECE 330");
+        classNameList.add("ECE 230\n");
+        classNameList.add("ECE 330\n");
     }
 
     @Override
