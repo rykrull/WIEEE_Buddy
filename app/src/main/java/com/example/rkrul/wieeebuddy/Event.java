@@ -1,6 +1,7 @@
 package com.example.rkrul.wieeebuddy;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,23 +14,13 @@ public class Event implements Serializable{
     private String date;
     private String description;
     private String location;
-    private int attendees;
+    private ArrayList<String> attendees;
 
     public Event(){
 
     }
 
-    public Event(String name, String startTime, String endTime, String date, String description, String location){
-        this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.date = date;
-        this.description = description;
-        this.location = location;
-        attendees = 0;
-    }
-
-    public Event(String name, String startTime, String endTime, String date, String description, String location, int attendees){
+    public Event(String name, String startTime, String endTime, String date, String description, String location, ArrayList<String> attendees){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -64,12 +55,17 @@ public class Event implements Serializable{
     }
 
     public int getAttendees(){
-        return attendees;
+        return attendees.size() - 1;
     }
 
-    public void addAttendees(){
-        attendees++;
+    public void addAttendees(String userName) {
+        attendees.add(userName);
     }
+
+    public void removeAttendees(String userName) {
+        attendees.remove(userName);
+    }
+
 
     public String toString(){
         return name + "\n" + date + "  " + startTime + " - " + endTime + "\n" + location+"\n";
