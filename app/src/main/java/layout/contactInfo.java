@@ -114,7 +114,6 @@ public class contactInfo extends Fragment {
                                 Intent email = new Intent(Intent.ACTION_SEND);
                                 email.putExtra(Intent.EXTRA_EMAIL, new String[]{contactlist.get(position).getEmail()});
                                 email.putExtra(Intent.EXTRA_SUBJECT, "[WIEEE BUDDY] Subject");
-                                email.putExtra(Intent.EXTRA_TEXT, "body");
                                 email.setType("message/rfc882");
                                 startActivity(Intent.createChooser(email,"Choose email client."));
                                 dialog.cancel();
