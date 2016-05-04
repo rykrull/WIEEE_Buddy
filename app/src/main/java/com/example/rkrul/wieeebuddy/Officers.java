@@ -28,7 +28,6 @@ public class Officers implements Serializable {
     public String getPosition(){return position;}
 
     public String toString(){
-        return Html.fromHtml("<font color='#981717'>Name:</font> ") + name + "\n" + "Position: " + position + "\n" + "Email: " + email+"\n";
-        //Html.fromHtml("RGB colors are <font color='#FF0000'>RED</font>, <font color='#00FF00'>GREEN</font> and <font color='#0000FF'>BLUE</font>")
+        return "Name: " + name + "\nPosition: " + position + "\nEmail: " + email+"\n";
     }
 }
