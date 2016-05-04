@@ -25,6 +25,7 @@ import layout.addEventDate;
 import layout.addEventDay;
 import layout.addNewEvent;
 import layout.contactInfo;
+import layout.equationDatabase;
 import layout.eventsList;
 import layout.manageAccount;
 import layout.openEvent;
@@ -34,7 +35,7 @@ public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
         addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener,
         eventsList.OnFragmentInteractionListener, openEvent.OnFragmentInteractionListener,
-        projectsList.OnFragmentInteractionListener{
+        projectsList.OnFragmentInteractionListener, equationDatabase.OnFragmentInteractionListener{
 
     private User user;
     private String Uid;
@@ -137,7 +138,11 @@ public class Main2Activity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_slideshow) {
-
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main2container, equationDatabase.newInstance())
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_manage) {
 
             getFragmentManager()

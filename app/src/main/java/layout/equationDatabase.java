@@ -11,9 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.rkrul.wieeebuddy.R;
 import com.example.rkrul.wieeebuddy.MyCustomAdapter;
 import com.example.rkrul.wieeebuddy.Project;
-import com.example.rkrul.wieeebuddy.R;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -22,26 +22,26 @@ import com.firebase.client.Query;
 
 import java.util.ArrayList;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link projectsList.OnFragmentInteractionListener} interface
+ * {@link equationDatabase.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link projectsList#newInstance} factory method to
+ * Use the {@link equationDatabase#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class projectsList extends Fragment {
+public class equationDatabase extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     private OnFragmentInteractionListener mListener;
-
     private ListView plist;
     private static ArrayList<String> prolist;
     private static ArrayList<Project> proProlist;
     private static ArrayAdapter<String> proAdapter;
     private static MyCustomAdapter adapter;
 
-    public projectsList() {
+    public equationDatabase() {
         // Required empty public constructor
     }
 
@@ -49,10 +49,10 @@ public class projectsList extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment projectsList.
+     * @return A new instance of fragment equation_database.
      */
-    public static projectsList newInstance() {
-        projectsList fragment = new projectsList();
+    public static equationDatabase newInstance() {
+        equationDatabase fragment = new equationDatabase();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -79,7 +79,7 @@ public class projectsList extends Fragment {
         plist.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         return view;
-    }
+}
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
@@ -121,7 +121,6 @@ public class projectsList extends Fragment {
             }
         });
     }
-
 
     @Override
     public void onAttach(Context context) {
