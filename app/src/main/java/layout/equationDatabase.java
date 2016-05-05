@@ -12,10 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.pdfViewer;
 import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +75,12 @@ public class equationDatabase extends Fragment {
         eqList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long arg3) {
-                
+                view.setSelected(true);
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main2container, pdfViewer.newInstance(position))
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
