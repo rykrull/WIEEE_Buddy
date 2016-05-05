@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Event;
 import com.example.rkrul.wieeebuddy.R;
@@ -152,6 +153,8 @@ public class addEventDate extends Fragment {
                 list.add("Empty");
                 Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description, location, list);
                 eventRef.setValue(event);
+                Toast.makeText(getActivity(), "Event Added!",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
