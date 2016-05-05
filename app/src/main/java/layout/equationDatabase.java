@@ -81,7 +81,6 @@ public class equationDatabase extends Fragment {
                         .replace(R.id.main2container, pdfViewer.newInstance(position))
                         .addToBackStack(null)
                         .commit();
-
             }
         });
     }

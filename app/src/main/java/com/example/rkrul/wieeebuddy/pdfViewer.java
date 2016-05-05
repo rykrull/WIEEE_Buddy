@@ -23,14 +23,6 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class pdfViewer extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
     private ArrayList<String> urls;
@@ -46,7 +38,6 @@ public class pdfViewer extends Fragment {
      *
      * @return A new instance of fragment pdfViewer.
      */
-    // TODO: Rename and change types and number of parameters
     public static pdfViewer newInstance(int position) {
         pdfViewer fragment = new pdfViewer();
         Bundle args = new Bundle();
@@ -63,13 +54,11 @@ public class pdfViewer extends Fragment {
         }
 
         urls = new ArrayList<String>();
+
         //Will be ECE 230 url
         urls.add("https://drive.google.com/file/d/0ByrsqOz3sOuDdGlCT0lmNUtBS3M/view?usp=sharing");
         // ECE 330 url
         urls.add("https://drive.google.com/file/d/0ByrsqOz3sOuDdGlCT0lmNUtBS3M/view?usp=sharing");
-
-
-
     }
 
     @Override
@@ -78,16 +67,14 @@ public class pdfViewer extends Fragment {
         // Inflate the layout for this fragment
         Firebase.setAndroidContext(getActivity());
         View view = inflater.inflate(R.layout.fragment_pdf_viewer, container, false);
+
         WebView mWebView = (WebView)view.findViewById(R.id.webViews);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebChromeClient(new WebChromeClient());
         String url = urls.get(classPosition);
         mWebView.loadUrl(url);
 
-
-
-
-        return inflater.inflate(R.layout.fragment_pdf_viewer, container, false);
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -124,7 +111,6 @@ public class pdfViewer extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
