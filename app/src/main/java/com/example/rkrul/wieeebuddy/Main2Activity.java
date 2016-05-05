@@ -32,7 +32,8 @@ public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, addNewEvent.OnFragmentInteractionListener,
         addEventDay.OnFragmentInteractionListener, addEventDate.OnFragmentInteractionListener,
         eventsList.OnFragmentInteractionListener, openEvent.OnFragmentInteractionListener,
-        projectsList.OnFragmentInteractionListener, equationDatabase.OnFragmentInteractionListener{
+        projectsList.OnFragmentInteractionListener, equationDatabase.OnFragmentInteractionListener,
+        pdfViewer.OnFragmentInteractionListener{
 
     private User user;
     private String Uid;
