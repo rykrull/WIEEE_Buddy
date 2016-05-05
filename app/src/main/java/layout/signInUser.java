@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.R;
+import com.example.rkrul.wieeebuddy.SaveSharedPreference;
 import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.AuthData;
 import com.firebase.client.ChildEventListener;
@@ -24,7 +24,6 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,12 +34,10 @@ import com.firebase.client.ValueEventListener;
  * create an instance of this fragment.
  */
 public class signInUser extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private String Uid;
@@ -62,7 +59,6 @@ public class signInUser extends Fragment {
      *
      * @return A new instance of fragment signInUser.
      */
-    // TODO: Rename and change types and number of parameters
     public static signInUser newInstance() {
         signInUser fragment = new signInUser();
         Bundle args = new Bundle();
@@ -93,13 +89,6 @@ public class signInUser extends Fragment {
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         //Login pressed
@@ -121,6 +110,7 @@ public class signInUser extends Fragment {
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                 User curr = dataSnapshot.getValue(User.class);
                                 if(curr.getEmail().equals(siusername.getText().toString())){
+                                    SaveSharedPreference.setUserName(getActivity(),Uid);
                                     Intent newIntent = new Intent(getActivity(), Main2Activity.class);
                                     newIntent.putExtra("user", curr);
                                     newIntent.putExtra("authData", Uid);
@@ -140,9 +130,9 @@ public class signInUser extends Fragment {
                             }
                         });
 
-                        Intent newIntent = new Intent(getActivity(), Main2Activity.class);
-                        newIntent.putExtra("user", new User(" "," "," "," ",null, 0));
-                        startActivity(newIntent);
+                        //Intent newIntent = new Intent(getActivity(), Main2Activity.class);
+                        //newIntent.putExtra("user", new User(" "," "," "," ",null, 0));
+                        //startActivity(newIntent);
                     }
                     @Override
                     public void onAuthenticationError(FirebaseError firebaseError) {

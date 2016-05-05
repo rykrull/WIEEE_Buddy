@@ -1,7 +1,9 @@
 package com.example.rkrul.wieeebuddy;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -161,9 +163,11 @@ public class Main2Activity extends AppCompatActivity
                         .commit();
             }
         } else if (id == R.id.nav_logout) {
+            SaveSharedPreference.setUserName(Main2Activity.this,"");
             Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/");
             ref.unauth();
             Intent newIntent = new Intent(this, MainActivity.class);
+            newIntent.putExtra("message", true);
             startActivity(newIntent);
             
         } else if (id == R.id.nav_share) {
