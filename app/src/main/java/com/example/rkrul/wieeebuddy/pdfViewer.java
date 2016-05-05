@@ -63,13 +63,11 @@ public class pdfViewer extends Fragment {
         }
 
         urls = new ArrayList<String>();
-        urls.add("https://www.google.com/");
-        urls.add("https://www.google.com/");
-        urls.add("https://www.google.com/");
-        urls.add("https://www.google.com/");
-        urls.add("https://www.google.com/");
-        //urls.add("ECE 230 url");
-        //urls.add("ECE 330 url");
+        //Will be ECE 230 url
+        urls.add("https://drive.google.com/file/d/0ByrsqOz3sOuDdGlCT0lmNUtBS3M/view?usp=sharing");
+        // ECE 330 url
+        urls.add("https://drive.google.com/file/d/0ByrsqOz3sOuDdGlCT0lmNUtBS3M/view?usp=sharing");
+
 
 
     }
@@ -79,21 +77,19 @@ public class pdfViewer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Firebase.setAndroidContext(getActivity());
-        View view = inflater.inflate(R.layout.fragment_equation_database, container, false);
-        WebView mWebView = (WebView)view.findViewById(R.id.webView);
+        View view = inflater.inflate(R.layout.fragment_pdf_viewer, container, false);
+        WebView mWebView = (WebView)view.findViewById(R.id.webViews);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebChromeClient(new WebChromeClient());
-
         String url = urls.get(classPosition);
-        mWebView.loadUrl("https://www.google.com/");
-        //setContentView(mWebView);
+        mWebView.loadUrl(url);
+
 
 
 
         return inflater.inflate(R.layout.fragment_pdf_viewer, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
