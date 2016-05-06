@@ -40,7 +40,6 @@ public class addNewEvent extends Fragment {
      *
      * @return A new instance of fragment addNewEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public static addNewEvent newInstance() {
         addNewEvent fragment = new addNewEvent();
         Bundle args = new Bundle();
@@ -52,7 +51,6 @@ public class addNewEvent extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
         }
     }
 
@@ -95,7 +93,6 @@ public class addNewEvent extends Fragment {
         });;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -130,7 +127,6 @@ public class addNewEvent extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
