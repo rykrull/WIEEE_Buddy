@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Event;
+import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.R;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -54,6 +55,7 @@ public class openEvent extends Fragment {
 
     private double latitude;
     private double longitude;
+    private double[] latlong;
     private double event_latitude = 43.07;
     private double event_longitude = -89.41;
     private boolean checkedIn;
@@ -106,7 +108,8 @@ public class openEvent extends Fragment {
 
 
 
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        //locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        /**
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -134,25 +137,8 @@ public class openEvent extends Fragment {
                 startActivity(intent);
 
             }
-        };
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.INTERNET
-                }, 10);
-
-                return view;
-            }
-        } else {
-            configureButton();
-        }
-
-
-
+        };**/
 
         return view;
     }
@@ -197,6 +183,31 @@ public class openEvent extends Fragment {
 
         /////////////////////////GPS///////////////////////////
 
+        gpsattend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                latlong = ((Main2Activity)getActivity()).getLocation();
+                latitude = latlong[0];
+                longitude = latlong[1];
+
+                if(latitude<event_latitude+1 && latitude> event_latitude-1){
+
+                    if(longitude<event_longitude+1 && longitude> event_longitude-1){
+                        checkedIn = true;
+                        Toast.makeText(getActivity(), "Checked In Succesful!",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        checkedIn = false;
+                        Toast.makeText(getActivity(), "Checked In Failed! Try Again",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+        });
 
 
 
@@ -237,21 +248,13 @@ public class openEvent extends Fragment {
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
-        switch (requestCode) {
-            case 10:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    configureButton();
-
-        }
-    }
-
     private void configureButton() {
         gpsattend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                latlong = ((Main2Activity)getActivity()).getLocation();
+
+                /**
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                             && getActivity().checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
@@ -294,7 +297,7 @@ public class openEvent extends Fragment {
                     checkedIn = false;
                     Toast.makeText(getActivity(), "Checked In Failed! Try Again",
                             Toast.LENGTH_SHORT).show();
-                }
+                } **/
 
             }
         });
