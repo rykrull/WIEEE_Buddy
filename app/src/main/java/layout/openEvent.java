@@ -117,7 +117,10 @@ public class openEvent extends Fragment {
         if (passedEvent.getAttendees().contains(user.getFullName())){
             interestattend.setVisibility(View.GONE);
         }
-        if(user.getEventsAttended().contains(passedEvent.getName())){
+        if (user.getFullName().equals("Freeloader")){
+
+        }
+        else if(user.getEventsAttended().contains(passedEvent.getName())){
             gpsattend.setVisibility(View.GONE);
         }
         return view;
@@ -206,9 +209,9 @@ public class openEvent extends Fragment {
                 latitude = latlong[0];
                 longitude = latlong[1];
 
-                if(latitude<passedEvent.getLatitude()+0.0005 && latitude> passedEvent.getLatitude()-0.0005){
+                if(latitude<passedEvent.getLatitude()+0.005 && latitude> passedEvent.getLatitude()-0.005){
 
-                    if(longitude<passedEvent.getLongitude()+0.0005 && longitude> passedEvent.getLongitude()-0.0005){
+                    if(longitude<passedEvent.getLongitude()+0.005 && longitude> passedEvent.getLongitude()-0.005){
                         checkedIn = true;
                         Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/").child("users")
                                 .child(user.getUserId()).child("eventsAttended");
