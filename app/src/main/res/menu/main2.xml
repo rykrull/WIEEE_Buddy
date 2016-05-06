@@ -6,7 +6,7 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item android:id="@+id/GPS"
-        android:title="Use GPS"
+        android:title="Test GPS"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

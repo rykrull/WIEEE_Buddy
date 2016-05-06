@@ -15,12 +15,14 @@ public class Event implements Serializable{
     private String description;
     private String location;
     private ArrayList<String> attendees;
+    private double latitude;
+    private double longitude;
 
     public Event(){
 
     }
 
-    public Event(String name, String startTime, String endTime, String date, String description, String location, ArrayList<String> attendees){
+    public Event(String name, String startTime, String endTime, String date, String description, String location, ArrayList<String> attendees, double latitude, double longitude){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -28,6 +30,8 @@ public class Event implements Serializable{
         this.description = description;
         this.location = location;
         this.attendees = attendees;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getName(){
@@ -54,7 +58,19 @@ public class Event implements Serializable{
         return location;
     }
 
-    public int getAttendees(){
+    public ArrayList<String> getAttendees(){
+        return attendees;
+    }
+
+    public double getLatitude(){
+        return latitude;
+    }
+
+    public double getLongitude(){
+        return longitude;
+    }
+
+    public int numAttendees(){
         return attendees.size() - 1;
     }
 

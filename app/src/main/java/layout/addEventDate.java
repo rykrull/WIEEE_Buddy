@@ -151,7 +151,7 @@ public class addEventDate extends Fragment {
                 Firebase eventRef = ref.child("events").child(name);
                 ArrayList<String> list = new ArrayList<String>();
                 list.add("Empty");
-                Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description, location, list);
+                Event event = new Event(name,startTime.getText().toString(), endTime.getText().toString(), month+"/"+day+"/"+year, description, location, list,0.0,0.0);
                 eventRef.setValue(event);
                 Toast.makeText(getActivity(), "Event Added!",
                         Toast.LENGTH_SHORT).show();

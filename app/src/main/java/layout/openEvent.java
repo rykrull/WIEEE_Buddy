@@ -117,6 +117,9 @@ public class openEvent extends Fragment {
         if (passedEvent.getAttendees().contains(user.getFullName())){
             interestattend.setVisibility(View.GONE);
         }
+        if(user.getEventsAttended().contains(passedEvent.getName())){
+            gpsattend.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -163,23 +166,6 @@ public class openEvent extends Fragment {
 
             }
         });
-        gpsattend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //if(gps Location is Confirmed){
-                    Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/").child("users")
-                            .child(user.getUserId()).child("eventsAttended");
-                    ArrayList<String> tmp = user.getEventsAttended();
-                    if(!tmp.contains(passedEvent.getName())){
-                        tmp.add(passedEvent.getName());
-                        user.setEventsAttended(tmp);
-                        userRef.setValue(tmp);
-                        Toast.makeText(getActivity(), "Attended Event!",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                //}
-            }
-        });
 
         interestattend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,17 +197,35 @@ public class openEvent extends Fragment {
         gpsattend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(user.getFullName().equals("Freeloader")){
+                    Toast.makeText(getActivity(), "Sign in or create account",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
                 latlong = ((Main2Activity)getActivity()).getLocation();
                 latitude = latlong[0];
                 longitude = latlong[1];
 
-                if(latitude<event_latitude+1 && latitude> event_latitude-1){
+                if(latitude<passedEvent.getLatitude()+0.00005 && latitude> passedEvent.getLatitude()-0.00005){
 
-                    if(longitude<event_longitude+1 && longitude> event_longitude-1){
+                    if(longitude<passedEvent.getLongitude()+0.00005 && longitude> passedEvent.getLongitude()-0.00005){
                         checkedIn = true;
-                        Toast.makeText(getActivity(), "Checked In Succesful!",
-                                Toast.LENGTH_SHORT).show();
-
+                        Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/").child("users")
+                                .child(user.getUserId()).child("eventsAttended");
+                        ArrayList<String> tmp = user.getEventsAttended();
+                        if(!tmp.contains(passedEvent.getName())){
+                            tmp.add(passedEvent.getName());
+                            user.setEventsAttended(tmp);
+                            userRef.setValue(tmp);
+                            Toast.makeText(getActivity(), "Attended Event!",
+                                    Toast.LENGTH_SHORT).show();
+                            gpsattend.setVisibility(View.GONE);
+                        }
+                        else{
+                            checkedIn = false;
+                            Toast.makeText(getActivity(), "Checked In Failed! Try Again",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else{
                         checkedIn = false;
@@ -230,11 +234,15 @@ public class openEvent extends Fragment {
                     }
 
                 }
+                else{
+                    checkedIn = false;
+                    Toast.makeText(getActivity(), "Checked In Failed! Try Again",
+                            Toast.LENGTH_SHORT).show();
+                }
 
             }
+            }
         });
-
-
 
         ///////////////////////////////////////////////////////
 
@@ -270,62 +278,6 @@ public class openEvent extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
-    }
-
-
-    private void configureButton() {
-        gpsattend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                latlong = ((Main2Activity)getActivity()).getLocation();
-
-                /**
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                            && getActivity().checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        {
-                            requestPermissions(new String[]{
-                                    Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                                    Manifest.permission.INTERNET
-                            }, 10);
-                            return;
-                        }
-                    }
-                }
-                locationManager.requestLocationUpdates("gps", 5, 0, locationListener);
-
-
-                if(latitude<event_latitude+1 && latitude> event_latitude-1){
-
-                    if(longitude<event_longitude+1 && longitude> event_longitude-1){
-                        checkedIn = true;
-                        Toast.makeText(getActivity(), "Checked In Succesful!",
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                    else{
-                        checkedIn = false;
-                        Toast.makeText(getActivity(), "Checked In Failed! Try Again",
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                else{
-                    checkedIn = false;
-                    Toast.makeText(getActivity(), "Checked In Failed! Try Again",
-                            Toast.LENGTH_SHORT).show();
-                } **/
-
-            }
-        });
     }
 
 }

@@ -229,15 +229,13 @@ public class Main2Activity extends AppCompatActivity
                 if (location == null) {
                     longitude = GPS_FAIL_LONG_LAT;
                     latitude = GPS_FAIL_LONG_LAT;
-                    System.out.print(latitude);
-                    System.out.print(longitude);
                     Toast.makeText(Main2Activity.this, "GPS coordinates not found", Toast.LENGTH_SHORT).show();
                 }
                 //this means we need to use the GPS data
                 else {
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
-                    Toast.makeText(Main2Activity.this, "Latitude: "+latitude+"\nlongitude: "+longitude, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Main2Activity.this, "Latitude: "+latitude+"\nLongitude: "+longitude, Toast.LENGTH_SHORT).show();
                 }
 
 
