@@ -1,11 +1,24 @@
 package com.example.rkrul.wieeebuddy;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -43,6 +56,15 @@ public class Main2Activity extends AppCompatActivity
     private TextView email;
     private Toolbar toolbar;
 
+    //location
+    protected static final int SECONDS_IN_mS = 1000;
+    protected static final int GPS_MIN_DIST_IN_METERS = 100;
+    protected static final int GPS_MIN_TIME_IN_MILLISEC = 100*SECONDS_IN_mS;
+    LocationManager locationManager;
+    protected static final int GPS_FAIL_LONG_LAT = 360;
+    double latitude;
+    double longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +93,73 @@ public class Main2Activity extends AppCompatActivity
         name.setText(user.getFullName());
         email.setText(user.getEmail());
 
+        // Location stuff
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET}, 10);
+                return;
+            } else {
+
+            }
+        }
+
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main2container, eventsList.newInstance(user))
                 .addToBackStack(null)
                 .commit();
+    }
+
+    /**prompts user for permission if the user has API 23 or higher*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 10:
+                if (grantResults.length > 0 && grantResults[0] == getPackageManager().PERMISSION_GRANTED)
+                    //configureButton()
+                    ;
+            case 22:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    //configureButton()
+                    ;
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+        }
+    }
+
+    private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Enable GPS",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                Intent callGPSSettingIntent = new Intent(
+                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+        return;
     }
 
     @Override
@@ -117,6 +201,51 @@ public class Main2Activity extends AppCompatActivity
                     .replace(R.id.main2container, addNewEvent.newInstance())
                     .addToBackStack(null)
                     .commit();
+            return true;
+        }
+        if (id == R.id.GPS) {
+            //requests access from user only is API 23 or higher
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ActivityCompat.checkSelfPermission(Main2Activity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(Main2Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.INTERNET}, 10);
+                }
+            }
+            //make sure location is turned ON on your phone
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                Toast.makeText(Main2Activity.this, "GPS is Enabled in your device", Toast.LENGTH_SHORT).show();
+            } else {
+                showGPSDisabledAlertToUser();
+            }
+            //reads location and makes sure it isn't null
+            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), true));
+            if (location != null ) {
+                //this means the party is private and location doesn't matter
+                if (location == null) {
+                    longitude = GPS_FAIL_LONG_LAT;
+                    latitude = GPS_FAIL_LONG_LAT;
+                    System.out.print(latitude);
+                    System.out.print(longitude);
+                    Toast.makeText(Main2Activity.this, "GPS coordinates not found", Toast.LENGTH_SHORT).show();
+                }
+                //this means we need to use the GPS data
+                else {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    Toast.makeText(Main2Activity.this, "Latitude: "+latitude+"\nlongitude: "+longitude, Toast.LENGTH_SHORT).show();
+                }
+
+
+            } else {
+                //this means location is null
+                Toast.makeText(Main2Activity.this, "GPS location not ready yet; this may take a few seconds...", Toast.LENGTH_SHORT).show();
+            }
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -184,8 +313,56 @@ public class Main2Activity extends AppCompatActivity
         return true;
     }
 
+    public double[] getLocation(){
+        //requests access from user only is API 23 or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(Main2Activity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(Main2Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET}, 10);
+            }
+        }
+        //make sure location is turned ON on your phone
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(Main2Activity.this, "GPS is Enabled in your device", Toast.LENGTH_SHORT).show();
+        } else {
+            showGPSDisabledAlertToUser();
+        }
+        //reads location and makes sure it isn't null
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), true));
+        if (location != null ) {
+            //this means the party is private and location doesn't matter
+            if (location == null) {
+                longitude = GPS_FAIL_LONG_LAT;
+                latitude = GPS_FAIL_LONG_LAT;
+                System.out.print(latitude);
+                System.out.print(longitude);
+                Toast.makeText(Main2Activity.this, "GPS coordinates not found", Toast.LENGTH_SHORT).show();
+            }
+            //this means we need to use the GPS data
+            else {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                Toast.makeText(Main2Activity.this, "Latitude: "+latitude+"\nlongitude: "+longitude, Toast.LENGTH_SHORT).show();
+            }
+
+
+        } else {
+            //this means location is null
+            Toast.makeText(Main2Activity.this, "GPS location not ready yet; this may take a few seconds...", Toast.LENGTH_SHORT).show();
+        }
+        double[] llocation = {latitude,longitude};
+        return llocation;
+    }
+
+
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
     }
+
 
 }

@@ -1,9 +1,18 @@
 package layout;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rkrul.wieeebuddy.Event;
+import com.example.rkrul.wieeebuddy.Main2Activity;
 import com.example.rkrul.wieeebuddy.R;
 import com.example.rkrul.wieeebuddy.User;
 import com.firebase.client.ChildEventListener;
@@ -45,6 +55,16 @@ public class openEvent extends Fragment {
     private TextView interest;
     private Button gpsattend;
     private Button interestattend;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    //private Location locationGPS;
+
+    private double latitude;
+    private double longitude;
+    private double[] latlong;
+    private double event_latitude = 43.07;
+    private double event_longitude = -89.41;
+    private boolean checkedIn;
 
     private String eventName;
     private User user;
@@ -53,6 +73,7 @@ public class openEvent extends Fragment {
     private ArrayList<Event> elist = new ArrayList<Event>();
 
     private OnFragmentInteractionListener mListener;
+
 
     public openEvent() {
         // Required empty public constructor
@@ -105,14 +126,14 @@ public class openEvent extends Fragment {
     }
 
     @Override
-    public void onViewCreated(final View view,Bundle savedInstanceState){
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         Firebase ref = new Firebase("https://wieeebuddy.firebaseio.com/events");
         Query queryRef = ref.orderByChild("name");
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Event newevent = dataSnapshot.getValue(Event.class);
-                if (newevent.getName().equals(passedEvent.getName())){
+                if (newevent.getName().equals(passedEvent.getName())) {
                     name.setText(passedEvent.getName());
                     description.setText("Description: "+passedEvent.getDescription());
                     location.setText("Location: "+passedEvent.getLocation());
@@ -188,6 +209,41 @@ public class openEvent extends Fragment {
             }
         });
 
+
+
+        /////////////////////////GPS///////////////////////////
+
+        gpsattend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                latlong = ((Main2Activity)getActivity()).getLocation();
+                latitude = latlong[0];
+                longitude = latlong[1];
+
+                if(latitude<event_latitude+1 && latitude> event_latitude-1){
+
+                    if(longitude<event_longitude+1 && longitude> event_longitude-1){
+                        checkedIn = true;
+                        Toast.makeText(getActivity(), "Checked In Succesful!",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        checkedIn = false;
+                        Toast.makeText(getActivity(), "Checked In Failed! Try Again",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+        });
+
+
+
+        ///////////////////////////////////////////////////////
+
+
     }
 
     @Override
@@ -220,4 +276,61 @@ public class openEvent extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+
+    private void configureButton() {
+        gpsattend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                latlong = ((Main2Activity)getActivity()).getLocation();
+
+                /**
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                            && getActivity().checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        {
+                            requestPermissions(new String[]{
+                                    Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                                    Manifest.permission.INTERNET
+                            }, 10);
+                            return;
+                        }
+                    }
+                }
+                locationManager.requestLocationUpdates("gps", 5, 0, locationListener);
+
+
+                if(latitude<event_latitude+1 && latitude> event_latitude-1){
+
+                    if(longitude<event_longitude+1 && longitude> event_longitude-1){
+                        checkedIn = true;
+                        Toast.makeText(getActivity(), "Checked In Succesful!",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        checkedIn = false;
+                        Toast.makeText(getActivity(), "Checked In Failed! Try Again",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else{
+                    checkedIn = false;
+                    Toast.makeText(getActivity(), "Checked In Failed! Try Again",
+                            Toast.LENGTH_SHORT).show();
+                } **/
+
+            }
+        });
+    }
+
 }

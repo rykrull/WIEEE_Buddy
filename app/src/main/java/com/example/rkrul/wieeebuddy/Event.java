@@ -54,11 +54,7 @@ public class Event implements Serializable{
         return location;
     }
 
-    public ArrayList<String> getAttendees(){
-        return attendees;
-    }
-
-    public int numAttendees() {
+    public int getAttendees(){
         return attendees.size() - 1;
     }
 
