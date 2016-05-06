@@ -206,9 +206,9 @@ public class openEvent extends Fragment {
                 latitude = latlong[0];
                 longitude = latlong[1];
 
-                if(latitude<passedEvent.getLatitude()+0.00005 && latitude> passedEvent.getLatitude()-0.00005){
+                if(latitude<passedEvent.getLatitude()+0.0005 && latitude> passedEvent.getLatitude()-0.0005){
 
-                    if(longitude<passedEvent.getLongitude()+0.00005 && longitude> passedEvent.getLongitude()-0.00005){
+                    if(longitude<passedEvent.getLongitude()+0.0005 && longitude> passedEvent.getLongitude()-0.0005){
                         checkedIn = true;
                         Firebase userRef = new Firebase("https://wieeebuddy.firebaseio.com/").child("users")
                                 .child(user.getUserId()).child("eventsAttended");
