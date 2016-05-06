@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 
 import com.example.rkrul.wieeebuddy.Officers;
 import com.example.rkrul.wieeebuddy.R;
@@ -131,5 +129,4 @@ public class contactInfo extends Fragment {
             }
         });
     }
-
 }

@@ -66,11 +66,8 @@ public class openEvent extends Fragment {
     private double event_longitude = -89.41;
     private boolean checkedIn;
 
-    private String eventName;
     private User user;
     private Event passedEvent;
-    private ArrayList<String> list = new ArrayList<String>();
-    private ArrayList<Event> elist = new ArrayList<Event>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -103,8 +100,6 @@ public class openEvent extends Fragment {
             user = (User)getArguments().getSerializable(ARG_PARAM2);
         }
     }
-
-    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

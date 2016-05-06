@@ -97,8 +97,6 @@ public class manageAccount extends Fragment {
         idPassword = (TextView)view.findViewById(R.id.idPassword);
         newID = (TextView)view.findViewById(R.id.idNewID);
 
-
-
         return view;
     }
 
